@@ -1,0 +1,23 @@
+1) What is Micro services?
+Micro services is architectural way to design our application uniquely with several small modules developed individually, packaged individually and deployed individually in individual processes.
+
+Before Micro services we were using Monolithic architecture (approach).
+
+2) Monolithic architecture:
+We develop all services individually and then developing, packaging in a single war file and deploy to server.
+
+3) Monolithic architecture drawbacks:
+(i)  performance issue due to huge data (we are packaging in a single war file so data will be huge)
+(ii) continuous deployment not possible (one module not working whole project will be disturbed, wait will be long)
+(iii) Adapting new technologies will be difficult.(one different and other different like java or python)
+(iv)  Overloaded IDE and overload web container. (same as 3(i))
+(v)  Exception propagation is not proper. (one fails will effect the others)
+(vi) Code readability is not present. (working with one module will require understanding all others)
+
+Microservice architecture:
+(opposite to Monolithic architecture in terms of features)
+For Passenger management (own db and independently deployment)
+For Driver management (own db and independently deployment)
+For Trip management (own db and independently deployment)
+
+Spring boot supports Microservices (and its features like hestrics)
