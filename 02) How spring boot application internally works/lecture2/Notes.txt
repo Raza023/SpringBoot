@@ -1,0 +1,12 @@
+Inside spring.factories (We have some properties enable, disable based on @Conditional and it contains @Configuration for bean) 
+It comes dynamically based starter pom dependencies. We add starter poms. We get META INF/spring.factories.
+
+How spring boot works with ApplicationContext and how it helps to execute our application.
+@SpringBootApplication (Spring Boot) == @Configuration + @EnableAutoConfiguration + @ComponentScan(for scanning from ISE container.) (Traditional Spring)
+Main method is not required for the deployment scenario. It helps to launch the application within an IDE. 
+SpringApplication.run() helps us to keep off the ApplicationContext that searches the classes with @Configuration and it will initialize all the declared beans in those Configuration classes and initiate the required beans. And stores in IOC(Inversion of Control)(IoC container is a framework for implementing automated dependency injection.) of JVM 
+Internal flow of SpringApplication.run(): 
+1) It will create ApplicationContext 
+2) check ApplicationType, based on it.
+3) Register the annotated classes beans with the context. 
+4) Creates an instance of the TomcatEmbeddedServletContainer and adds the context.
