@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: schema-0.0.1
+      author: hassan.raza
+      changes:
+        - createTable:
+            tableName: Ticket
+            columns:
+              - column:
+                  name: Id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: Amount
+                  type: NUMBER(18,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: Category
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: Ticket
+            columnNames: Id
+            constraintName: PK01_Ticket_Id
+#  - changeSet:
+#      id: alter-table-auto-increment
+#      author: news team
+#      changes:
+#        - sql:
+#            sql: ALTER TABLE news ALTER COLUMN id RESTART WITH 3;

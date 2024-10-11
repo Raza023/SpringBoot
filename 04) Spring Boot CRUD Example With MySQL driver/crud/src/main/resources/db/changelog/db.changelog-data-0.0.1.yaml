@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: data-0.0.1
+      author: news team
+      changes:
+        - insert:
+            tableName: Ticket
+            columns:
+              - column:
+                  name: Id
+                  value: '1'
+              - column:
+                  name: Amount
+                  value: '10.00'
+              - column:
+                  name: Category
+                  value: First class
