@@ -37,11 +37,11 @@ spring:
 #    type: caffeine
 #    caffeine:
 #      spec: maximumSize=5000, expireAfterAccess=300s
-  security:
-    user:
-      name: admin
-      password: admin
-      roles: admin
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+#      roles: admin
 
 #  datasource:
 #    initialization-mode: always

@@ -21,7 +21,7 @@ import lombok.ToString;
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private int id;
     private double amount;
     private String category;
