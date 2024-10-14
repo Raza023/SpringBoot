@@ -1,0 +1,9 @@
+#crud:
+#  db:
+#    url: jdbc:h2:mem:testDB
+#    user: sa
+#    password:
+
+#CRUD_DB_URL: jdbc:h2:mem:testDB
+#CRUD_DB_USER: sa
+#CRUD_DB_PASSWORD:
