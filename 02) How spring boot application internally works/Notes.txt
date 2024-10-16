@@ -1,3 +1,8 @@
+How spring boot internally works?
+1) We use pre-configured jar provided by Spring boot developers.
+2) Starter pom (we add spring-boot-starter-web, spring-boot-starter-test, and spring-boot-starter-data-jpa, it brings all the jars.)
+3) In META-INF/spring.factories we have these jars and components. We can either enable and disable these components. Based on @Conditional and @Configuration
+
 Inside spring.factories (We have some properties enable, disable based on @Conditional and it contains @Configuration for bean) 
 It comes dynamically based starter pom dependencies. We add starter poms. We get META INF/spring.factories.
 

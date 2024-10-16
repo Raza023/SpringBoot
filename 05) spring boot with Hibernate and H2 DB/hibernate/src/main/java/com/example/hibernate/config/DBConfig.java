@@ -2,32 +2,30 @@ package com.example.hibernate.config;
 
 
 import jakarta.persistence.EntityManagerFactory;
-import java.util.Properties;
-import javax.sql.DataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @PropertySource(value = {"classpath:application.properties"})
 public class DBConfig {
 
-    @Value("${jdbc.driverClassName}")
+    @Value("${spring.datasource.driverClassName}")
     private String driverClass;
-    @Value("${jdbc.url}")
+    @Value("${spring.datasource.url}")
     private String url;
-    @Value("${jdbc.username}")
+    @Value("${spring.datasource.username}")
     private String username;
-    @Value("${jdbc.password}")
+    @Value("${spring.datasource.password}")
     private String password;
     @Value("${hibernate.dialect}")
     private String dialect;
@@ -56,6 +54,7 @@ public class DBConfig {
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.format_sql", "true");
+        properties.put("hibernate.current_session_context_class", "org.springframework.orm.hibernate5.SpringSessionContext");
         return properties;
     }
 

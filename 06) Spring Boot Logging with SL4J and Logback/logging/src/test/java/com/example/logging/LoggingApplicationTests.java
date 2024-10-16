@@ -1,10 +1,10 @@
-package com.java.lecture2;
+package com.example.logging;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Lecture2ApplicationTests {
+class LoggingApplicationTests {
 
 	@Test
 	void contextLoads() {
