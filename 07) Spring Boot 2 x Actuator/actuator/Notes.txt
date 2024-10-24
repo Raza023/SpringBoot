@@ -1,0 +1,12 @@
+Actuator:
+
+We use it to monitor our application in each of the environment.
+It's a key component of Spring boot.
+
+Let's discuss key features:
+1) By default only one health(http://localhost:8080/actuator/health) endpoint is available.
+2) To enable all other end points we need to exclude them in property file.
+
+3) Let's create our customized health indicator. to enable it add property
+(management.endpoint.health.show-details=always)
+
