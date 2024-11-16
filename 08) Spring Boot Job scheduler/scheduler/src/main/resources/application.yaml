@@ -1,0 +1,31 @@
+# it is used to log the sql on console.
+logging:
+  #  pattern:
+  #    level: "%5P ${HOSTNAME}"
+  #    console:
+  file:
+    name: target/scheduler.log
+  level:
+    sql: debug
+    web: debug
+    '[com.example.scheduler]': DEBUG
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+    resources:
+      add-mappings: false
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: ${scheduler.db.url}
+    user: ${scheduler.db.user}
+    password: ${scheduler.db.password}
+
+server:
+  port: 9080

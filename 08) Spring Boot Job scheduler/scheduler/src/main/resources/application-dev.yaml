@@ -1,0 +1,9 @@
+scheduler:
+  db:
+    url: jdbc:h2:mem:testDB
+    user: sa
+    password:
+
+#SCHEDULER_DB_URL: jdbc:h2:mem:testDB
+#SCHEDULER_DB_USER: sa
+#SCHEDULER_DB_PASSWORD:

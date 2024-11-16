@@ -1,0 +1,7 @@
+we will create schheduler with 
+
+1) each 5 seconds 
+add data to db
+
+2) each 15 seconds 
+fetch data from db

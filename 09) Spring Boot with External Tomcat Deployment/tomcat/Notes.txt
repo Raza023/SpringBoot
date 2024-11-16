@@ -1,0 +1,8 @@
+1) Create a project with war packaging, it will add ServletInitializer class in your application
+and also adds spring-boot-starter-tomcat.
+2) add one attribute in properties of main pom.
+<start-class>com.example.tomcat.TomcatApplication</start-class>
+3) Create application
+4) Run mvn clean install(build) it will build a .war
+5) download tomcat, and install smart tomcat plugin
+
