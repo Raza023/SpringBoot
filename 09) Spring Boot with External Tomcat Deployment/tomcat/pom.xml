@@ -29,6 +29,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<start-class>com.example.tomcat.TomcatApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
