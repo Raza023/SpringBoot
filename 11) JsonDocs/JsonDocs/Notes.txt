@@ -1,0 +1,42 @@
+Let's see how to generate resource api documentations using JsonDocs. (alternate of swagger)
+
+-------------------- 1) Add dependencies --------------------
+dependencies: devtools, lombok, jpa,h2, web
+
+-------------------- 2) disadvantages --------------------
+JsonDocs does not support PostMapping, GetMapping, PutMapping.... e.t.c.,
+//@PostMapping("/save")   //JsonDocs does not support it.
+Use @RequestMapping instead
+LIKE
+@RequestMapping(value = "/save", method = RequestMethod.POST)
+@RequestMapping(value = "/get", method = RequestMethod.GET)
+@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+
+-------------------- 3) Add JsonDocs dependency --------------------
+<!-- https://mvnrepository.com/artifact/org.jsondoc/spring-boot-starter-jsondoc -->
+<dependency>
+    <groupId>org.jsondoc</groupId>
+    <artifactId>spring-boot-starter-jsondoc</artifactId>
+    <version>1.2.23</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.jsondoc/jsondoc-ui -->
+<dependency>
+    <groupId>org.jsondoc</groupId>
+    <artifactId>jsondoc-ui-webjar</artifactId>
+    <version>1.2.23</version>
+</dependency>
+
+-------------------- 4) Enable it --------------------
+Add @EnableJSONDoc to class level in main class.
+
+
+-------------------- 5) Configure it --------------------
+We can configure JsonDocs in two ways:
+1) using yaml file.
+2) using application.properties.
+
+--------:application.properties:----                             //specify all required packages which you want.
+jsondoc.version = 1.0
+jsondoc.basePath = http://localhost:9090                         //make sure to replace your port.
+jsondoc.packages[0] = com.example.JsonDocs.controller
+jsondoc.packages[1] = com.example.JsonDocs.model                 //make sure to replace your package here. you can specify other packages as well as per need.
