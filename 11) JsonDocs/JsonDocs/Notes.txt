@@ -40,3 +40,29 @@ jsondoc.version = 1.0
 jsondoc.basePath = http://localhost:9090                         //make sure to replace your port.
 jsondoc.packages[0] = com.example.JsonDocs.controller
 jsondoc.packages[1] = com.example.JsonDocs.model                 //make sure to replace your package here. you can specify other packages as well as per need.
+
+
+-------------------- 6) Open Jsondoc --------------------
+http://localhost:8080/jsondoc-ui.html
+
+search http://localhost:8080/jsondoc is url search bar of jsondocs.
+
+-------------------- 7) Annotations --------------------
+For help: https://www.jsondoc.org/annotations.html
+
+On Controller:
+@Api(name = "Employee Management System", description = "Employee info",
+        group = "Management", visibility = ApiVisibility.PUBLIC, stage = ApiStage.BETA)
+
+On Controller functions:
+@ApiMethod(description = "add new employee")
+@ApiMethod(description = "find employee by id", path = { "id" })
+@PathVariable @ApiPathParam(description = "input employee id to get", name = "id") int id
+
+On Entity:
+@ApiObject
+// @ApiObject(show = false) //if you don't want to show this entity. By default it's true.
+
+On Entity fields:
+@ApiObjectField(name = "employee id", description = "Auto generated id")
+

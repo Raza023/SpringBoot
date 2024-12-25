@@ -20,7 +20,7 @@ public class EmployeeService {
      */
     public String saveEmployee(Employee employee) {
         Employee savedEmployee = employeeDataService.saveAndFlush(employee);
-        return "New employee added with id: " + savedEmployee.getId();
+        return "New employee added with id: "; // + savedEmployee.getId();
     }
 
     /**
