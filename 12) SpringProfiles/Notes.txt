@@ -11,7 +11,7 @@ But the bugs are only showing in QA environment.
 But in dev environment it is working fine.
 We will transfer all the urls and db related stuff to QA env. Does not sound good
 In this case we will use @Profile
-
+ noice
 
 
 
