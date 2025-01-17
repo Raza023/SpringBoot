@@ -1,0 +1,39 @@
+###########################Spring profiles###########################
+
+It is used for switching the environment and for restricting the access in each environment.
+
+Suppose I am using swagger feature to generate the rest document,
+I don't want to enable this swagger feature in all our environments.
+In this case we will use @Profile for that.
+
+I created an application, It moved to QA and QA people found some bugs.
+But the bugs are only showing in QA environment.
+But in dev environment it is working fine.
+We will transfer all the urls and db related stuff to QA env. Does not sound good
+In this case we will use @Profile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
