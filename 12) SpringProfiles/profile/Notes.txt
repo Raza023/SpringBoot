@@ -12,24 +12,16 @@ But in dev environment it is working fine.
 We will transfer all the urls and db related stuff to QA env. Does not sound good
 In this case we will use @Profile
 
+If you want to segregate the parts of Application you can use @Profile
+to make it available only in certain environments.
 
 
+###########################Working###########################
+let's create three schemas for three env (environments):
+1) loc (local)
+2) dev (development)
+3) prod (production)
 
+based on my configurations it will fetch the data from corresponding schema.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+If I have not mentioned any env. It will go to the local schema.
