@@ -1,0 +1,22 @@
+test:
+  db:
+    url: jdbc:sqlserver://localhost:1433;databaseName=dev;encrypt=true;trustServerCertificate=true
+    user: sa
+    password: razaa023
+
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://localhost:1433;databaseName=dev;encrypt=true;trustServerCertificate=true
+#    username: sa
+#    password: razaa023
+    # encrypt=true: Ensures the data is encrypted during transmission.
+    # trustServerCertificate=true: Bypasses the certificate validation.
+
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServer2012Dialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create
+    show-sql: true

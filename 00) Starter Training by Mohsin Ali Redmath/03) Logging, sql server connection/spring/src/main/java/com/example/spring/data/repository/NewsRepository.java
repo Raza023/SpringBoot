@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
-    List<News> findAll();
+    Optional<News> findByNewsID(Long id);
 
-    Optional<News> findById(Long id);
+    List<News> findByNewsCategory(String newsCategory);
 
-
+    News findByNewsIDAndNewsCategory(Long id, String category);
 }

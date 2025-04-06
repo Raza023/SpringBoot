@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: spring
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: ${test.db.url}
+    username: ${test.db.user}
+    password: ${test.db.password}
+  profiles:
+#    include: dev
+    active: dev
