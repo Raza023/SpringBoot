@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: logging
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  pattern:
+    level: "%5level ${HOSTNAME}"
+# if you want to empty console.
+#    console:
+  level:
+    root: DEBUG
+    sql: DEBUG
+    '[com.example.logging.service]': DEBUG
+  # if you want to show logging on file.
+  file:
+    name: target/news.log
