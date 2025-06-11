@@ -8,7 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserDataService extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM User u LEFT JOIN u.posts WHERE u.id = :id")
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.posts WHERE u.id = :id")
     Optional<User> findByIdWithPosts(@Param("id") Long id);
+
+    @Query("SELECT u FROM User u WHERE u.id = :id")
+    Optional<User> findByIdWithOutPosts(@Param("id") Long id);
+
+    @Query(value = "SELECT * from Users WHERE ID = :id", nativeQuery = true)
+    Optional<User> findByIdWithOutPostsUsingNativeQuery(@Param("id") Long id);
 
 }
