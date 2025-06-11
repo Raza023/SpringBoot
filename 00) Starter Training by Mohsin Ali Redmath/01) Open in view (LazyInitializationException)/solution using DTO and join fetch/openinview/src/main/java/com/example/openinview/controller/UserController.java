@@ -18,11 +18,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String getUserWithID(@PathVariable Long id) {
-        UserDto user = userBusiness.getUserWithID(id);
-        if (ObjectUtils.isEmpty(user)) {
+        UserDto userDto = userBusiness.getUserWithID(id);
+        if (ObjectUtils.isEmpty(userDto)) {
             return "User not found.";
         }
-        int postCount = user.getPosts().size(); // No LazyInitializationException here now.
+        // No LazyInitializationException here now, because we fetched data only in @Transactional
+        int postCount = userDto.getPosts().size();
         return "User has " + postCount + " posts.";
     }
 

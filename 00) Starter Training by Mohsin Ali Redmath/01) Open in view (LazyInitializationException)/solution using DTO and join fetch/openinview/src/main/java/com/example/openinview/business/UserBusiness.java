@@ -1,8 +1,12 @@
 package com.example.openinview.business;
 
+import com.example.openinview.entity.Post;
 import com.example.openinview.entity.User;
 import com.example.openinview.entity.UserDto;
+import com.example.openinview.entity.UserDto.PostData;
 import com.example.openinview.repository.UserDataService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,11 +30,7 @@ public class UserBusiness {
         if (Objects.isNull(user)) {
             return null;
         }
-        UserDto userDto = new UserDto();
-        userDto.setName(user.getName());
-        userDto.setPosts(user.getPosts());
-        return userDto;
+        return UserDto.getUserDto(user);
     }
-
 
 }

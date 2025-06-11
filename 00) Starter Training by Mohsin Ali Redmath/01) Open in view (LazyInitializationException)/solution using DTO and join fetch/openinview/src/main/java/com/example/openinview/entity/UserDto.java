@@ -1,7 +1,7 @@
 package com.example.openinview.entity;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,16 +15,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDto {
 
+    private Long id;
     private String name;
-    private List<Post> posts;
+    private List<PostData> posts;
 
-    public UserDto getUserDto(User user) {
-        if (Objects.isNull(user)) {
-            return null;
-        }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PostData {
+
+        private Long id;
+        private String title;
+        private Long userId;
+    }
+
+    public static UserDto getUserDto(User user) {
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
         userDto.setName(user.getName());
-        userDto.setPosts(user.getPosts());
+        List<PostData> posts = new ArrayList<>();
+        for (Post post : user.getPosts()) {
+            PostData postData = new PostData();
+            postData.setId(post.getId());
+            postData.setTitle(post.getTitle());
+            postData.setUserId(post.getUser().getId());
+            posts.add(postData);
+        }
+        userDto.setPosts(posts);
         return userDto;
     }
 }
