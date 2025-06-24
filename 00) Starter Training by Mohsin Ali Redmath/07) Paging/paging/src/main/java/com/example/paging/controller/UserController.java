@@ -29,9 +29,10 @@ public class UserController {
             @RequestParam(name = "name", defaultValue = "") String title) {
         List<UserDto> userDtoList = userBusiness.findByNameLike(page, size, title);
 
-//    	if (newsList.isEmpty()) {   //no need to do this.
-//        	return ResponseEntity.notFound().build();
-//    	}
+        //No need to do this. because we can return 200 with [] empty list.
+        //if (newsList.isEmpty()) {
+        //	return ResponseEntity.notFound().build();
+        //}
 
         // strict-origin-when-cross-origin
         //      This is usually the default setting
@@ -46,7 +47,7 @@ public class UserController {
                 .headers(headers)
                 .body(ApiResponse.of(userDtoList));  //we don't have to do any mapping for it.
 
-//    	return ResponseEntity.ok(Map.of("content",newsList));
+//    	return ResponseEntity.ok(Map.of("content", userDtoList));
     }
 
 
