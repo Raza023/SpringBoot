@@ -1,6 +1,35 @@
-INSERT INTO Users (ID, Name) VALUES (1, 'Alice');
-INSERT INTO Users (ID, Name) VALUES (2, 'Bob');
+INSERT INTO Users (ID, Name) VALUES
+(1, 'Heidi726'), (2, 'Isabella565'), (3, 'Niaj633'), (4, 'Mallory54'), (5, 'Harper105'),
+(6, 'Ava308'), (7, 'Alice782'), (8, 'Wendy281'), (9, 'Niaj553'), (10, 'Quinn856'),
+(11, 'Grace974'), (12, 'Bob376'), (13, 'Xander205'), (14, 'Sybil16'), (15, 'Xander962'),
+(16, 'Eve249'), (17, 'Abigail181'), (18, 'Harper602'), (19, 'Peggy701'), (20, 'Trent134'),
+(21, 'Rupert152'), (22, 'Charlie62'), (23, 'Wendy24'), (24, 'Judy158'), (25, 'Wendy620'),
+(26, 'Niaj684'), (27, 'David575'), (28, 'Eve725'), (29, 'Eve982'), (30, 'Rupert41'),
+(31, 'Heidi657'), (32, 'Ava472'), (33, 'Grace367'), (34, 'Isabella577'), (35, 'Charlie905'),
+(36, 'Sophia200'), (37, 'Logan317'), (38, 'Eve193'), (39, 'Yara733'), (40, 'Isabella488'),
+(41, 'Trent94'), (42, 'Abigail788'), (43, 'Noah74'), (44, 'Sophia180'), (45, 'Trent352'),
+(46, 'Charlie525'), (47, 'Fay638'), (48, 'Yara222'), (49, 'Mason72'), (50, 'Ivan836'),
+(51, 'Elijah187'), (52, 'Amelia188'), (53, 'Isabella996'), (54, 'Fay756'), (55, 'Abigail565'),
+(56, 'Isabella46'), (57, 'Liam552'), (58, 'Grace912'), (59, 'Wendy534'), (60, 'Zack275'),
+(61, 'Olivia356'), (62, 'Logan760'), (63, 'Noah158'), (64, 'Karl78'), (65, 'Niaj296'),
+(66, 'Karl71'), (67, 'Wendy180'), (68, 'Noah708'), (69, 'Harper575'), (70, 'Logan368'),
+(71, 'Quinn387'), (72, 'Karl570'), (73, 'Trent530'), (74, 'Eve385'), (75, 'Eve463'),
+(76, 'Ava90'), (77, 'Emma540'), (78, 'Harper524'), (79, 'Abigail917'), (80, 'Harper524'),
+(81, 'Noah452'), (82, 'Grace812'), (83, 'Zack8'), (84, 'Sophia202'), (85, 'Mallory66'),
+(86, 'Judy185'), (87, 'Fay891'), (88, 'Bob411'), (89, 'Judy369'), (90, 'Bob35'),
+(91, 'Liam98'), (92, 'Charlie903'), (93, 'Wendy894'), (94, 'Elijah367'), (95, 'Niaj482'),
+(96, 'Grace841'), (97, 'Judy33'), (98, 'Trent267'), (99, 'David682'), (100, 'Yara48'),
+(101, 'Emma97'), (102, 'Sophia381'), (103, 'Bob980'), (104, 'Isabella822'), (105, 'Alice149'),
+(106, 'Sophia923'), (107, 'Rupert513'), (108, 'Ivan170'), (109, 'Liam102'), (110, 'Rupert350'),
+(111, 'Noah977'), (112, 'Heidi174'), (113, 'Abigail61'), (114, 'Evelyn321'), (115, 'Xander715'),
+(116, 'Yara650'), (117, 'Judy113'), (118, 'Alice613'), (119, 'Sybil199'), (120, 'Quinn221'),
+(121, 'Heidi594'), (122, 'Uma292'), (123, 'Sophia284'), (124, 'Sophia402'), (125, 'Isabella231'),
+(126, 'Quinn622'), (127, 'Ava198'), (128, 'Eve405'), (129, 'Mason193'), (130, 'Yara320'),
+(131, 'Uma12'), (132, 'Quinn66'), (133, 'Laura518'), (134, 'Evelyn95'), (135, 'Harper386'),
+(136, 'Mallory166'), (137, 'Evelyn62'), (138, 'Trent85'), (139, 'Judy646'), (140, 'Mason113'),
+(141, 'Lucas561'), (142, 'Quinn962'), (143, 'Rupert730'), (144, 'Grace15'), (145, 'Alice640'),
+(146, 'Liam92'), (147, 'Evelyn927'), (148, 'Lucas83'), (149, 'Zack434'), (150, 'Bob999');
 
-INSERT INTO Posts (ID, Title, UserId) VALUES (1, 'Post 1 by Alice', 1);
-INSERT INTO Posts (ID, Title, UserId) VALUES (2, 'Post 2 by Alice', 1);
-INSERT INTO Posts (ID, Title, UserId) VALUES (3, 'Post 1 by Bob', 2);
+INSERT INTO Posts (ID, Title, UserId) VALUES (1, 'Post 1 by Heidi726', 1);
+INSERT INTO Posts (ID, Title, UserId) VALUES (2, 'Post 2 by Heidi726', 1);
+INSERT INTO Posts (ID, Title, UserId) VALUES (3, 'Post 1 by Isabella565', 2);

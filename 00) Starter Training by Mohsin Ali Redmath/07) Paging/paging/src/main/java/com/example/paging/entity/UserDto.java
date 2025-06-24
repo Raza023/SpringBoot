@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 @Getter
 @Setter
@@ -35,12 +36,14 @@ public class UserDto {
         userDto.setId(user.getId());
         userDto.setName(user.getName());
         List<PostData> posts = new ArrayList<>();
-        for (Post post : user.getPosts()) {
-            PostData postData = new PostData();
-            postData.setId(post.getId());
-            postData.setTitle(post.getTitle());
-            postData.setUserId(post.getUser().getId());
-            posts.add(postData);
+        if (!CollectionUtils.isEmpty(user.getPosts())) {
+            for (Post post : user.getPosts()) {
+                PostData postData = new PostData();
+                postData.setId(post.getId());
+                postData.setTitle(post.getTitle());
+                postData.setUserId(post.getUser().getId());
+                posts.add(postData);
+            }
         }
         userDto.setPosts(posts);
         return userDto;
