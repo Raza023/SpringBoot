@@ -32,7 +32,8 @@ public class LoggingApplication {
             log.error("An exception occurred", e);
             response = "Error: " + e.getMessage();  // Return the exception message
         } finally {
-            response = "An exception occurred: "+response;
+            //do something here if needed
+            log.info("Request processing completed for {}", name);
         }
         return response;
     }
