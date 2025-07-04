@@ -21,6 +21,20 @@ public class PersonDao {
         entityManager.persist(person);
     }
 
+    @Transactional
+    public void updatePerson(Person person) {
+        entityManager.merge(person);   
+        //if person already exists, it will update it; otherwise, it will insert a new record.
+    }
+
+    @Transactional
+    public void deletePerson(Long id) {
+        Person person = entityManager.find(Person.class, id);
+        if (person != null) {
+            entityManager.remove(person);
+        }
+    }
+
     @Transactional(readOnly = true)
     public List<Person> getPersons() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
