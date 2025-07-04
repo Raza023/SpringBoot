@@ -66,4 +66,4 @@ server:
 #  servlet:
 #    context-path: /news
 
-#spring.profiles.include: dev, local
+spring.profiles.include: dev
