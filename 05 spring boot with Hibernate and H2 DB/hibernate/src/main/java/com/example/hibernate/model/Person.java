@@ -16,7 +16,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String name;
 
     //@JsonFormat is used to get date in 21/03/2020 format in postman RequestBody.

@@ -14,15 +14,40 @@ public class PersonController {
     @Autowired
     private PersonDao dao;
 
-    @PostMapping("/savePerson")
-    public String save(@RequestBody Person person) {
-        dao.savePerson(person);
-        return "success";
-    }
-
     @GetMapping("/getAll")
     public List<Person> getALlPersons() {
         return dao.getPersons();
+    }
+
+    @GetMapping("/findById/{id}")
+    public Person findById(@PathVariable Long id) {
+        return dao.findById(id);
+    }
+
+    @PostMapping("/savePerson")
+    public String save(@RequestBody Person person) {
+        dao.savePerson(person);
+        return "person successfully saved.";
+    }
+
+    @PutMapping("/updatePerson")
+    public String updatePerson(@RequestBody Person person) {
+        boolean updated = dao.updatePerson(person);
+        if (updated) {
+            return "person updated successfully.";
+        } else {
+            return "person not found.";
+        }
+    }
+
+    @DeleteMapping("/deletePerson/{id}")
+    public String deletePerson(@PathVariable Long id) {
+        boolean deleted = dao.deletePerson(id);
+        if (deleted) {
+            return "person deleted successfully.";
+        } else {
+            return "person not found.";
+        }
     }
 
 }
