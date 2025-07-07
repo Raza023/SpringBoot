@@ -25,7 +25,8 @@ If a new resource joins, to understand the flow of the application, he can refer
     <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 
-2) Let's say if I have to create Swagger documentation for only two controllers.
+2) Let's say if I have to create Swagger documentation for only two controllers And I have 5 controllers written,
+so we need to inform swagger to create rest documentation for only 2 controllers.
 see SwaggerConfig.java for more info.
 
 3) http://localhost:8080/swagger-ui/index.html
@@ -47,8 +48,13 @@ see BookController.java for more info.
 // we can use customOpenAPI() function.
 see SwaggerConfig.java for more info.
 
+9) Extracting JSON or yaml spec:   (make sure you have added: springdoc.swagger-ui.path=/api-docs)
+http://localhost:8080/v3/api-docs → returns the spec in JSON
+http://localhost:8080/v3/api-docs.yaml → returns the spec in YAML (if YAML support is enabled)
+If your app is running, just open this URL in your browser
+
 ----Extra----
-9) If you want to use @ApiOperation instead of @Operation then add following dependency:
+10) If you want to use @ApiOperation instead of @Operation then add following dependency:
 <!-- Optional Swagger Annotations for @ApiOperation, @ApiParam, etc. -->
 <dependency>
     <groupId>io.swagger</groupId>
