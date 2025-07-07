@@ -1,11 +1,17 @@
 package com.example.scheduler.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,7 +25,7 @@ public class User {
 
     @Override               //no need to write that line by the way.
     public String toString() {
-        return "{User id: "+this.id+"\n"+"User name: "+this.name+"}";
+        return "{User id: " + this.id + "\n" + "User name: " + this.name + "}";
     }
 
 }
