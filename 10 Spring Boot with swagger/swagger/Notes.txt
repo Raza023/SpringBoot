@@ -50,52 +50,29 @@ http://localhost:8080/v3/api-docs  → returns the spec in JSON
 http://localhost:8080/v3/api-docs.yaml  → returns the spec in YAML(if YAML support is enabled)
 If your app is running, just open this URL in your browser
 
-9) If you want to generate it as a file at build time, you can use the springdoc-openapi Gradle/Maven plugin:
-Example with Maven plugin:
+9) If you want to generate it as a file at build time, This plugin will generate swagger.yaml or openapi.yaml after the project builds in the output folder (usually target/) only when your app is running on port 8080. And also don’t push this plugin to production.
 <plugin>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-maven-plugin</artifactId>
-    <version>2.5.0</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>generate</goal>
-            </goals>
-        </execution>
-    </executions>
+   <groupId>org.codehaus.mojo</groupId>
+   <artifactId>exec-maven-plugin</artifactId>
+   <version>3.1.0</version>
+   <executions>
+      <execution>
+         <id>download-openapi</id>
+         <phase>verify</phase>
+         <goals>
+            <goal>exec</goal>
+         </goals>
+         <configuration>
+            <executable>curl</executable>
+            <arguments>
+               <argument>-o</argument>
+               <argument>${project.build.directory}/swagger.yaml</argument>
+               <argument>http://localhost:8080/v3/api-docs.yaml</argument>
+            </arguments>
+         </configuration>
+      </execution>
+   </executions>
 </plugin>
-Then run:
-mvn clean install
-The plugin will generate swagger.yaml or openapi.yaml in the output folder (usually target/).
-
-Or the second option is to run your application and add the following plugin. 
-This plugin will generate swagger.yaml or openapi.yaml after the project build 
-in the output folder (usually target/) only when your app is running on port 8080.
-And also don't push this plugin to production.
-
-<plugin>
-	<groupId>org.codehaus.mojo</groupId>
-	<artifactId>exec-maven-plugin</artifactId>
-	<version>3.1.0</version>
-	<executions>
-		<execution>
-			<id>download-openapi</id>
-			<phase>verify</phase>
-			<goals>
-				<goal>exec</goal>
-			</goals>
-			<configuration>
-				<executable>curl</executable>
-				<arguments>
-					<argument>-o</argument>
-					<argument>${project.build.directory}/swagger.yaml</argument>
-					<argument>http://localhost:8080/v3/api-docs.yaml</argument>
-				</arguments>
-			</configuration>
-		</execution>
-	</executions>
-</plugin>
-
 
 ----Extra----
 10) If you want to use @ApiOperation instead of @Operation then add following dependency:
