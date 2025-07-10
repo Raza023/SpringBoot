@@ -1,6 +1,6 @@
 package com.example.swagger.controller;
 
-import com.example.swagger.entity.Book;
+import com.example.model.Book;
 import com.example.swagger.service.BookService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

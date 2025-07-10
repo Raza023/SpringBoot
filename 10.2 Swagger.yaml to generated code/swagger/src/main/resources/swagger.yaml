@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Book Service
-  description: Sample Documentation Generated Using OpenAPI for the Book REST API
+  description: Sample Documentation Generated Using OpenAPI for the Book Rest API
   termsOfService: https://github.com/Raza023
   license:
     name: Java Learning License
@@ -9,142 +9,141 @@ info:
   version: "1.0"
 servers:
   - url: http://localhost:8080
-    description: Local server
-
+    description: Generated server url
 tags:
   - name: Book Controller APIs
     description: Operations related to books
-
 paths:
   /book/save:
     post:
       tags:
         - Book Controller APIs
       summary: Create a new book
-      description: This endpoint creates a new book
+      description: This endpoint allows for creating a new book in the system
       operationId: saveBook
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Book"
+        required: true
       responses:
-        "201":
-          description: Book created successfully
+        "200":
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
-                $ref: "#/components/schemas/Book"
-        "400":
-          description: Invalid input
-
+                type: string
   /book:
     get:
       tags:
         - Book Controller APIs
-      summary: Get books by title
-      description: Retrieves books filtered by title
+      summary: Get a book by title.
+      description: This endpoint retrieves a specific book by its title
       operationId: getBooksByTitle
       parameters:
         - name: title
           in: query
-          description: Title of the book to search for
+          description: The title of the book to search for
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: Successfully retrieved books by title
+          description: Successfully retrieved book using title.
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Book"
         "404":
-          description: No books found with given title
-
+          description: Book not found using title.
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
   /book/get:
     get:
       tags:
         - Book Controller APIs
       summary: Get all books
-      description: Retrieves all books in the system
+      description: This endpoint retrieves all books from the system
       operationId: fetchAllBooks
       responses:
         "200":
-          description: Successfully retrieved all books
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Book"
-
   /book/get/{bookId}:
     get:
       tags:
         - Book Controller APIs
-      summary: Get book by ID
-      description: Retrieves a book by its ID
+      summary: Get a book by ID
+      description: This endpoint retrieves a specific book by its ID
       operationId: fetchBookById
       parameters:
         - name: bookId
           in: path
+          description: ID of the book to be retrieved
           required: true
-          description: ID of the book to retrieve
           schema:
             type: integer
             format: int32
       responses:
         "200":
-          description: Successfully retrieved book
+          description: Successfully retrieved book using id.
           content:
-            application/json:
+            '*/*':
               schema:
                 $ref: "#/components/schemas/Book"
         "404":
-          description: Book not found
-
+          description: Book not found using id.
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Book"
   /book/delete/{bookId}:
     delete:
       tags:
         - Book Controller APIs
       summary: Delete book by ID
-      description: Deletes a book by its ID
+      description: This endpoint delete the book from the system
       operationId: deleteBook
       parameters:
         - name: bookId
           in: path
+          description: ID of the book to be deleted.
           required: true
-          description: ID of the book to delete
           schema:
             type: integer
             format: int32
       responses:
         "200":
-          description: Book deleted successfully
+          description: OK
           content:
-            application/json:
+            '*/*':
               schema:
                 type: string
-        "404":
-          description: Book not found
-
 components:
   schemas:
     Book:
-      type: object
       required:
         - bookId
         - bookName
         - price
+      type: object
       properties:
         bookId:
           type: integer
-          format: int32
           description: Unique identifier for the book
+          format: int32
           example: 1
         bookName:
           type: string
@@ -152,7 +151,7 @@ components:
           example: Spring Boot in Action
         price:
           type: number
-          format: double
           description: Price of the book
+          format: double
           example: 29.99
-      description: Book object
+      description: Book object to be created
