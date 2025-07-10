@@ -16,11 +16,22 @@ public class BookService {
     private BookRepository bookRepository;
 
     public String saveBook(Book book) {
-        bookRepository.save(com.example.swagger.entity.Book.mapBookEntity(book));
-        return "Book saved with id: "+book.getBookId();
+        com.example.swagger.entity.Book entity;
+        if (book.getBookId() != null && bookRepository.existsById(book.getBookId())) {
+            // Partial update: fetch existing, update only non-null fields
+            entity = bookRepository.findById(book.getBookId()).orElseThrow();
+            if (book.getBookName() != null) {
+                entity.setBookName(book.getBookName());
+            }
+            if (book.getPrice() != null) {
+                entity.setPrice(book.getPrice());
+            }
+        } else {
+            entity = com.example.swagger.entity.Book.mapBookEntity(book);
+        }
+        com.example.swagger.entity.Book savedEntity = bookRepository.save(entity);
+        return "Book saved with id: " + savedEntity.getBookId();
     }
-
-
 
     public Optional<Book> getBook(int bookId) {
         Optional<com.example.swagger.entity.Book> optionalBook = bookRepository.findById(bookId);
@@ -45,11 +56,14 @@ public class BookService {
     }
 
     public List<Book> getBooks() {
-        return bookRepository.findAll();
+        List<com.example.swagger.entity.Book> bookEntities = bookRepository.findAll();
+        return bookEntities.stream().map(this::mapBook).toList();
     }
 
     public List<Book> getBooksByName(String name) {
-        return bookRepository.findByBookName(name);
+        String pattern = "%" + name + "%";
+        List<com.example.swagger.entity.Book> bookEntities = bookRepository.findByBookNameLike(pattern);
+        return bookEntities.stream().map(this::mapBook).toList();
     }
 
     public String removeBook(int bookId) {
