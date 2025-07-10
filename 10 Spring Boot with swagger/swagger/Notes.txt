@@ -25,33 +25,77 @@ If a new resource joins, to understand the flow of the application, he can refer
     <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 
-2) Let's say if I have to create Swagger documentation for only two controllers And I have 5 controllers written,
-so we need to inform swagger to create rest documentation for only 2 controllers.
-see SwaggerConfig.java for more info.
+2) Go to: http://localhost:8080/swagger-ui/index.html and check swagger ui for your rest apis.
 
-3) http://localhost:8080/swagger-ui/index.html
-
-4) In application.properties:
+3) In application.properties:
 springdoc.swagger-ui.path=/api-docs
 #it will make swagger specification available at http://localhost:8080/api-docs as well
 
-5) Add summary and description to each end-point using @Operation and @Parameter.
+4) Add summary and description to each end-point using @Operation and @Parameter.
 see BookController.java for more info.
 
-6) Add summary and description to each entity attributes using @Schema.
+5) Add summary and description to each entity attribute using @Schema.
 see Book.java for more info.
 
-7) Add summary and description to each controller at class level using @Tag.
+6) Add summary and description to each controller at class level using @Tag.
 see BookController.java for more info.
 
-8) Add summary and description in Global OpenAPI configuration using @OpenAPIDefinition.
-// we can use customOpenAPI() function.
+7) Add summary and description in Global OpenAPI configuration using @OpenAPIDefinition.
+// we can also use the customOpenAPI() function instead of @OpenAPIDefinition.
+Let's say if I have to create Swagger documentation for only two controllers And I have 5 controllers written, so we need to inform swagger to create rest documentation for only 2 controllers in SwaggerConfig.java class.
 see SwaggerConfig.java for more info.
 
-9) Extracting JSON or yaml spec:   (make sure you have added: springdoc.swagger-ui.path=/api-docs)
-http://localhost:8080/v3/api-docs → returns the spec in JSON
-http://localhost:8080/v3/api-docs.yaml → returns the spec in YAML (if YAML support is enabled)
+8) Extracting JSON or yaml spec:   (make sure you have added: springdoc.swagger-ui.path=/api-docs)
+http://localhost:8080/v3/api-docs  → returns the spec in JSON
+http://localhost:8080/v3/api-docs.yaml  → returns the spec in YAML(if YAML support is enabled)
 If your app is running, just open this URL in your browser
+
+9) If you want to generate it as a file at build time, you can use the springdoc-openapi Gradle/Maven plugin:
+Example with Maven plugin:
+<plugin>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-maven-plugin</artifactId>
+    <version>2.5.0</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>generate</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+Then run:
+mvn clean install
+The plugin will generate swagger.yaml or openapi.yaml in the output folder (usually target/).
+
+Or the second option is to run your application and add the following plugin. 
+This plugin will generate swagger.yaml or openapi.yaml after the project build 
+in the output folder (usually target/) only when your app is running on port 8080.
+And also don't push this plugin to production.
+
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>exec-maven-plugin</artifactId>
+	<version>3.1.0</version>
+	<executions>
+		<execution>
+			<id>download-openapi</id>
+			<phase>verify</phase>
+			<goals>
+				<goal>exec</goal>
+			</goals>
+			<configuration>
+				<executable>curl</executable>
+				<arguments>
+					<argument>-o</argument>
+					<argument>${project.build.directory}/swagger.yaml</argument>
+					<argument>http://localhost:8080/v3/api-docs.yaml</argument>
+				</arguments>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+
 
 ----Extra----
 10) If you want to use @ApiOperation instead of @Operation then add following dependency:
