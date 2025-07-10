@@ -1,0 +1,158 @@
+openapi: 3.0.1
+info:
+  title: Book Service
+  description: Sample Documentation Generated Using OpenAPI for the Book REST API
+  termsOfService: https://github.com/Raza023
+  license:
+    name: Java Learning License
+    url: https://github.com/Raza023/SpringBoot
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+tags:
+  - name: Book Controller APIs
+    description: Operations related to books
+
+paths:
+  /book/save:
+    post:
+      tags:
+        - Book Controller APIs
+      summary: Create a new book
+      description: This endpoint creates a new book
+      operationId: saveBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+      responses:
+        "201":
+          description: Book created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "400":
+          description: Invalid input
+
+  /book:
+    get:
+      tags:
+        - Book Controller APIs
+      summary: Get books by title
+      description: Retrieves books filtered by title
+      operationId: getBooksByTitle
+      parameters:
+        - name: title
+          in: query
+          description: Title of the book to search for
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved books by title
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+        "404":
+          description: No books found with given title
+
+  /book/get:
+    get:
+      tags:
+        - Book Controller APIs
+      summary: Get all books
+      description: Retrieves all books in the system
+      operationId: fetchAllBooks
+      responses:
+        "200":
+          description: Successfully retrieved all books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+
+  /book/get/{bookId}:
+    get:
+      tags:
+        - Book Controller APIs
+      summary: Get book by ID
+      description: Retrieves a book by its ID
+      operationId: fetchBookById
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID of the book to retrieve
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: Successfully retrieved book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: Book not found
+
+  /book/delete/{bookId}:
+    delete:
+      tags:
+        - Book Controller APIs
+      summary: Delete book by ID
+      description: Deletes a book by its ID
+      operationId: deleteBook
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID of the book to delete
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: Book deleted successfully
+          content:
+            application/json:
+              schema:
+                type: string
+        "404":
+          description: Book not found
+
+components:
+  schemas:
+    Book:
+      type: object
+      required:
+        - bookId
+        - bookName
+        - price
+      properties:
+        bookId:
+          type: integer
+          format: int32
+          description: Unique identifier for the book
+          example: 1
+        bookName:
+          type: string
+          description: Name of the book
+          example: Spring Boot in Action
+        price:
+          type: number
+          format: double
+          description: Price of the book
+          example: 29.99
+      description: Book object
