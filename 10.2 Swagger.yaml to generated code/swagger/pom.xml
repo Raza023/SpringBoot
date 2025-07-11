@@ -113,7 +113,7 @@
 							<output>${project.build.directory}/generated-sources/openapi</output>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly> <!-- generates only interfaces, no implementation -->
-								<useSpringBoot3>true</useSpringBoot3> <!-- 🟢 tell generator to use jakarta.* -->
+								<useSpringBoot3>true</useSpringBoot3> <!-- tell generator to use jakarta.* -->
 								<dateLibrary>java8</dateLibrary> <!-- optional, but recommended -->
 							</configOptions>
 						</configuration>
