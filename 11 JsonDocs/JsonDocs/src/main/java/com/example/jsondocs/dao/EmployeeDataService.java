@@ -1,6 +1,6 @@
-package com.example.JsonDocs.dao;
+package com.example.jsondocs.dao;
 
-import com.example.JsonDocs.model.Employee;
+import com.example.jsondocs.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

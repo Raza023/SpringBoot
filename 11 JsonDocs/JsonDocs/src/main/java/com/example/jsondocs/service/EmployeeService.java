@@ -1,7 +1,7 @@
-package com.example.JsonDocs.service;
+package com.example.jsondocs.service;
 
-import com.example.JsonDocs.dao.EmployeeDataService;
-import com.example.JsonDocs.model.Employee;
+import com.example.jsondocs.dao.EmployeeDataService;
+import com.example.jsondocs.model.Employee;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,16 @@ public class EmployeeService {
      */
     public String saveEmployee(Employee employee) {
         Employee savedEmployee = employeeDataService.saveAndFlush(employee);
-        return "New employee added with id: "; // + savedEmployee.getId();
+        return "New employee added with id: " + savedEmployee.getId();
+    }
+
+    /**
+     * Get employees.
+     *
+     * @return Employee
+     */
+    public List<Employee> getEmployees() {
+        return employeeDataService.findAll();
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.example.JsonDocs.model;
+package com.example.jsondocs.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

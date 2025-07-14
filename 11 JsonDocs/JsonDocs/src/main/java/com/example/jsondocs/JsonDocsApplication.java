@@ -1,4 +1,4 @@
-package com.example.JsonDocs;
+package com.example.jsondocs;
 
 import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.springframework.boot.SpringApplication;

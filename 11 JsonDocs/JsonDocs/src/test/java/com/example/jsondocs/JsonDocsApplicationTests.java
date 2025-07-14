@@ -1,4 +1,4 @@
-package com.example.JsonDocs;
+package com.example.jsondocs;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

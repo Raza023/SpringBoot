@@ -1,7 +1,7 @@
-package com.example.JsonDocs.controller;
+package com.example.jsondocs.controller;
 
-import com.example.JsonDocs.model.Employee;
-import com.example.JsonDocs.service.EmployeeService;
+import com.example.jsondocs.model.Employee;
+import com.example.jsondocs.service.EmployeeService;
 import java.util.List;
 
 import org.jsondoc.core.annotation.Api;
@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/employee")
+@RestController
+@RequestMapping("/employee")
 @Api(name = "Employee Management System", description = "Employee info",
         group = "Management", visibility = ApiVisibility.PUBLIC, stage = ApiStage.BETA)
 public class EmployeeController {
@@ -35,6 +36,12 @@ public class EmployeeController {
     @ApiMethod(description = "find employee by id", path = { "id" })
     public Employee getEmployee(@PathVariable @ApiPathParam(description = "input employee id to get.", name = "id") int id) {
         return employeeService.getEmployee(id);
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @ApiMethod(description = "find employee by id")
+    public List<Employee> getEmployee() {
+        return employeeService.getEmployees();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
