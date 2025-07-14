@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/employee")
-@Api(name = "Employee Management System", description = "Employee info",
-        group = "Management", visibility = ApiVisibility.PUBLIC, stage = ApiStage.BETA)
+@Api(name = "Employee Management System", description = "Employee info", group = "Management", visibility = ApiVisibility.PUBLIC, stage = ApiStage.BETA)
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    //@PostMapping("/save")   //JsonDocs does not support it.
+    // @PostMapping("/save") //JsonDocs does not support it.
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ApiMethod(description = "add new employee")
     public String saveEmployee(@RequestBody Employee employee) {
@@ -34,7 +33,8 @@ public class EmployeeController {
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ApiMethod(description = "find employee by id", path = { "id" })
-    public Employee getEmployee(@PathVariable @ApiPathParam(description = "input employee id to get.", name = "id") int id) {
+    public Employee getEmployee(
+            @PathVariable @ApiPathParam(description = "input employee id to get.", name = "id") int id) {
         return employeeService.getEmployee(id);
     }
 
@@ -46,9 +46,17 @@ public class EmployeeController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ApiMethod(description = "delete employee by id", path = { "id" })
-    public List<Employee> deleteEmployee(@PathVariable @ApiPathParam(description = "input employee id to delete.", name = "id") int id) {
+    public List<Employee> deleteEmployee(
+            @PathVariable @ApiPathParam(description = "input employee id to delete.", name = "id") int id) {
         return employeeService.deleteEmployee(id);
     }
 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PATCH)
+    @ApiMethod(description = "update employee partially by id", path = { "id" })
+    public Employee updateEmployee(
+            @PathVariable @ApiPathParam(description = "employee id to update", name = "id") int id,
+            @RequestBody Employee employee) {
+        return employeeService.updateEmployee(id, employee);
+    }
 
 }

@@ -13,6 +13,33 @@ public class EmployeeService {
     private EmployeeDataService employeeDataService;
 
     /**
+     * Update employee with only provided fields (partial update).
+     *
+     * @param id              employee id
+     * @param updatedEmployee employee object with fields to update
+     * @return updated Employee or null if not found
+     */
+    public Employee updateEmployee(int id, Employee updatedEmployee) {
+        Employee existingEmployee = employeeDataService.findById(id).orElse(null);
+        if (existingEmployee == null) {
+            return null;
+        }
+        // Only update fields that are not null (or not zero for primitives)
+        if (updatedEmployee.getName() != null) {
+            existingEmployee.setName(updatedEmployee.getName());
+        }
+        if (updatedEmployee.getDept() != null) {
+            existingEmployee.setDept(updatedEmployee.getDept());
+        }
+        // For salary, update only if provided value is greater than zero
+        if (updatedEmployee.getSalary() > 0) {
+            existingEmployee.setSalary(updatedEmployee.getSalary());
+        }
+        employeeDataService.saveAndFlush(existingEmployee);
+        return existingEmployee;
+    }
+
+    /**
      * Save new employee.
      *
      * @param employee employee
@@ -53,6 +80,5 @@ public class EmployeeService {
         employeeDataService.flush();
         return employeeDataService.findAll();
     }
-
 
 }
