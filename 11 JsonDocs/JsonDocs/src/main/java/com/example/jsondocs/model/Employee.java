@@ -27,11 +27,11 @@ public class Employee {
     @Id
     //@GeneratedValue // we can use it as well here.
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiObjectField(name = "employee id", description = "Auto generated id")
+    @ApiObjectField(name = "id", description = "Auto generated id")
     private int id;
-    @ApiObjectField(name = "employee name", description = "name same as voterId")
+    @ApiObjectField(name = "name", description = "name same as voterId")
     private String name;
-    @ApiObjectField(name = "department", description = "dept section")
+    @ApiObjectField(name = "dept", description = "department section")
     private String dept;
     @ApiObjectField(name = "salary", description = "annual income")
     private double salary;

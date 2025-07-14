@@ -44,8 +44,7 @@ jsondoc.packages[1] = com.example.JsonDocs.model                 //make sure to 
 
 -------------------- 6) Open Jsondoc --------------------
 http://localhost:8080/jsondoc-ui.html
-
-search http://localhost:8080/jsondoc is url search bar of jsondocs.
+search http://localhost:8080/jsondoc in url search bar of jsondocs.
 
 -------------------- 7) Annotations --------------------
 For help: https://www.jsondoc.org/annotations.html
