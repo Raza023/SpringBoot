@@ -38,6 +38,22 @@ public class EmployeeController {
         return employeeService.getEmployee(id);
     }
 
+    /*
+     * Endpoint:
+     * HEAD /employee/get/{id}
+     * 
+     * Description:
+     * Returns only the headers (no body) for the get employee by id endpoint.
+     * Useful for checking if an employee exists and for metadata (like content
+     * type, length) without transferring the full resource.
+     * 
+     */
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.HEAD)
+    @ApiMethod(description = "head request for employee by id", path = { "id" })
+    public void headGetEmployee(@PathVariable int id) {
+        // Spring automatically handles HEAD requests; no body is returned.
+    }
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ApiMethod(description = "find employee by id")
     public List<Employee> getEmployee() {
@@ -57,6 +73,20 @@ public class EmployeeController {
             @PathVariable @ApiPathParam(description = "employee id to update", name = "id") int id,
             @RequestBody Employee employee) {
         return employeeService.updateEmployee(id, employee);
+    }
+
+    /*
+     * Endpoint:
+     * OPTIONS /employee/update/{id}
+     * 
+     * Description:
+     * Returns the allowed HTTP methods and other CORS-related information for the
+     * update employee endpoint. Useful for clients to discover what operations are
+     * supported.
+     */ 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.OPTIONS)
+    public void optionsUpdateEmployee() {
+        // Spring automatically handles OPTIONS requests for CORS.
     }
 
 }

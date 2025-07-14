@@ -12,9 +12,8 @@ But in dev environment it is working fine.
 We will transfer all the urls and db related stuff to QA env. Does not sound good
 In this case we will use @Profile
 
-If you want to segregate the parts of Application you can use @Profile
+If you want to segregate (separate) the parts of Application you can use @Profile
 to make it available only in certain environments.
-
 
 ###########################Working###########################
 let's create three schemas for three env (environments):
