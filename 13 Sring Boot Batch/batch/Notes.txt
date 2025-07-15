@@ -1,0 +1,74 @@
+
+Data I added in Person>bank_users
+[
+  {
+    "id": 1,
+    "name": "Hassan Raza",
+    "email": "imhraza023@gmail.com",
+    "contactNo": "1234567890",
+    "dob": { "$date": "2000-12-12T00:00:00Z" },
+    "status": "Pending",
+    "outstandingAmount": "5000",
+    "lastDueDate": { "$date": "2025-07-01T00:00:00Z" }
+  },
+  {
+    "id": 2,
+    "name": "Ali Khan",
+    "email": "hr770735@gmail.com",
+    "contactNo": "1234567891",
+    "dob": { "$date": "1999-10-10T00:00:00Z" },
+    "status": "Pending",
+    "outstandingAmount": "6000",
+    "lastDueDate": { "$date": "2025-06-25T00:00:00Z" }
+  },
+  {
+    "id": 3,
+    "name": "Ahmed Raza",
+    "email": "hr7770735@gmail.com",
+    "contactNo": "1234567892",
+    "dob": { "$date": "2001-08-15T00:00:00Z" },
+    "status": "Pending",
+    "outstandingAmount": "7000",
+    "lastDueDate": { "$date": "2025-06-20T00:00:00Z" }
+  },
+  {
+    "id": 4,
+    "name": "Usman Ali",
+    "email": "bitf19a023@gmail.com",
+    "contactNo": "1234567893",
+    "dob": { "$date": "1998-03-05T00:00:00Z" },
+    "status": "Pending",
+    "outstandingAmount": "8000",
+    "lastDueDate": { "$date": "2025-06-15T00:00:00Z" }
+  },
+  {
+    "id": 5,
+    "name": "Zain Raza",
+    "email": "hassanraza1598@gmail.com",
+    "contactNo": "1234567894",
+    "dob": { "$date": "2000-01-01T00:00:00Z" },
+    "status": "Closed",
+    "outstandingAmount": "0",
+    "lastDueDate": { "$date": "2025-05-30T00:00:00Z" }
+  },
+  {
+    "id": 6,
+    "name": "Adeel Ahmed",
+    "email": "hr1.hassanraza@gmail.com",
+    "contactNo": "1234567895",
+    "dob": { "$date": "1997-07-07T00:00:00Z" },
+    "status": "Closed",
+    "outstandingAmount": "0",
+    "lastDueDate": { "$date": "2025-05-25T00:00:00Z" }
+  },
+  {
+    "id": 7,
+    "name": "Bilal Khan",
+    "email": "hr2.hassanraza@gmail.com",
+    "contactNo": "1234567896",
+    "dob": { "$date": "1996-11-11T00:00:00Z" },
+    "status": "Closed",
+    "outstandingAmount": "0",
+    "lastDueDate": { "$date": "2025-05-20T00:00:00Z" }
+  }
+]
