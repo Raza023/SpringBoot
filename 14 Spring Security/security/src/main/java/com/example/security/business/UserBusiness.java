@@ -45,9 +45,9 @@ public class UserBusiness {
         List<User> users = userDataService.findAll();
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
-            UserDto dto = UserDto.getUserDto(user);
             // Optionally clear posts if you want to exclude them
-            dto.setPosts(null);
+            user.setPosts(null);
+            UserDto dto = UserDto.getUserDto(user);
             userDtos.add(dto);
         }
         return userDtos;
@@ -60,7 +60,7 @@ public class UserBusiness {
      */
     @Transactional(readOnly = true)
     public List<UserDto> getAllUsersWithPosts() {
-        List<User> users = userDataService.findAll();
+        List<User> users = userDataService.findAllWithPosts();
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
             userDtos.add(UserDto.getUserDto(user));
@@ -94,7 +94,7 @@ public class UserBusiness {
             user.setPosts(posts);
             users.add(user);
         }
-        userDataService.saveAll(users);
+        userDataService.saveAllAndFlush(users);
         return users.size();
     }
 

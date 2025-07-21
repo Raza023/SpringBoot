@@ -1,6 +1,7 @@
 package com.example.security.repository;
 
 import com.example.security.model.User;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,9 @@ public interface UserDataService extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.posts WHERE u.id = :id")
     Optional<User> findByIdWithPosts(@Param("id") Long id);
+
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.posts")
+    List<User> findAllWithPosts();
 
     @Query("SELECT u FROM User u WHERE u.id = :id")
     Optional<User> findByIdWithOutPosts(@Param("id") Long id);
