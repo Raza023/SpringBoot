@@ -1,5 +1,7 @@
 package com.example.security.config;
 
+import com.example.security.repository.UserDataService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,10 +20,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity   //necessary for @PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_HR')")
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    /////////////////////////////////PasswordEncoder/////////////////////////////////
+    private final UserDataService userDataService;
 
+    /////////////////////////////////PasswordEncoder/////////////////////////////////
     /**
      * Password Encoder.
      *
@@ -58,12 +63,11 @@ public class SecurityConfiguration {
     /**
      * Authentication using CustomUserDetailsService.
      *
-     * @param encoder encoder
      * @return UserDetailsService
      */
     @Bean // Here, we can provide id as well. (Write CustomUserDetails class and CustomUserDetailsService for it.)
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        return new CustomUserDetailsService(encoder);
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService(userDataService);
     }
 
     /*
@@ -122,7 +126,14 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
+        //we don't have to disable csrf because we are using stateful session-based applications
+        // Optional: disable csrf only if you're using POST on h2-console login page (never disable it in production)
+        // Optional: disable frame option allows iframe for H2 console (never disable it in production)
+        //Anything not defined in request matcher is implicitly secured.
+        //Like /api/v1/security → doesn't match any of these, so it's secured implicitly.
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/v1/security/welcome", "/api/v1/security/add-dummy-users",
                                         "/h2-console/**").permitAll()
@@ -132,18 +143,20 @@ public class SecurityConfiguration {
         //.formLogin(Customizer.withDefaults()).build();  //it gives form for login on /login
     }
 
-//    /**
-//     * Since DaoAuthenticationProvider is deprecated and UserDetailsService and PasswordEncoder are beans.
-//     * Spring will automatically register a suitable DaoAuthenticationProvider behind the scenes.
-//     * You just have to add AuthenticationManager @Bean.
-//     */
-//    @Bean
-//    public AuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(userDetailsService(passwordEncoder()));
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return authenticationProvider;
-//    }
+    /*
+     Since DaoAuthenticationProvider is deprecated and UserDetailsService and PasswordEncoder are beans.
+     Spring will automatically register a suitable DaoAuthenticationProvider behind the scenes.
+     You just have to add AuthenticationManager @Bean.
+     */
+    /*
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService(passwordEncoder()));
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+     */
 
     /**
      * Spring will automatically create a suitable DaoAuthenticationProvider internally. Using your UserDetailsService
