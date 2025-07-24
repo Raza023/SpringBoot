@@ -79,7 +79,7 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_HR')")
-    public String addNewUsers(@RequestBody User user) throws Exception {
+    public String addNewUser(@RequestBody User user) throws Exception {
         User addedUser = userBusiness.addNewUser(user);
         if (Objects.nonNull(addedUser)) {
             return "New user added.";

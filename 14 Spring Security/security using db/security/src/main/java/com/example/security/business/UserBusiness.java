@@ -4,6 +4,7 @@ import com.example.security.model.Post;
 import com.example.security.model.Role;
 import com.example.security.model.User;
 import com.example.security.model.UserDto;
+import com.example.security.repository.RoleDataService;
 import com.example.security.repository.UserDataService;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserBusiness {
 
     private final UserDataService userDataService;
+    private final RoleDataService roleDataService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -127,6 +129,16 @@ public class UserBusiness {
         if (optionalUser.isPresent()) {
             throw new Exception("User already exists.");
         }
+        Set<Role> validRoles = new HashSet<>();
+        for(Role role: user.getRoles()) {
+            Optional<Role> existingRole = roleDataService.findByRole(role.getRole());
+            if(existingRole.isPresent()){
+                validRoles.add(existingRole.get());
+            } else {
+                validRoles.add(role);
+            }
+        }
+        user.setRoles(validRoles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userDataService.saveAndFlush(user);
     }
