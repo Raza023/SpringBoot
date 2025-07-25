@@ -8,7 +8,6 @@ import com.example.security.repository.RoleDataService;
 import com.example.security.repository.UserDataService;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -84,63 +83,81 @@ public class UserBusiness {
      * @return number of users added
      */
     @Transactional
-    public int addDummyUsers(int count) {
+    public int addDummyUsers(int count) throws Exception {
         List<User> users = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             User user = new User();
             user.setName("DummyUser" + random.nextInt(100000));
+            checkUserIfExists(user);
             user.setEmail(user.getName() + "@gmail.com");
             user.setPassword(passwordEncoder.encode(user.getName()));
-            user.setRoles(getRandomRoles());
-
-            // Add random posts to user (1-5)
-            int postCount = 1 + random.nextInt(5);
-            List<Post> posts = new ArrayList<>();
-            for (int j = 0; j < postCount; j++) {
-                Post post = new Post();
-                post.setTitle("Post " + (j + 1) + " for " + user.getName());
-                post.setUser(user);
-                posts.add(post);
-            }
-            user.setPosts(posts);
+            user.setRoles(getRandomRolesSet());
+            addRandomPostsToUser(user);
             users.add(user);
         }
         userDataService.saveAllAndFlush(users);
         return users.size();
     }
 
-    private Set<Role> getRandomRoles() {
-        Set<String> roles = new HashSet<>();
-        roles.add("ROLE_ADMIN");
-        roles.add("ROLE_USER");
-        roles.add("ROLE_HR");
+    private Set<Role> getRandomRolesSet() {
         Random rand = new Random();
-        List<String> roleList = new ArrayList<>(roles);
-        Set<Role> oneRoleSet = new HashSet<>();
-        Role role = new Role();
-        role.setRole(roleList.get(rand.nextInt(roleList.size())));
-        oneRoleSet.add(role);
-        return oneRoleSet;
+        List<String> roleList = new ArrayList<>(Arrays.asList("ROLE_ADMIN", "ROLE_USER", "ROLE_HR"));
+        Set<Role> requiredRolesSet = new HashSet<>();
+        int randomRoleCount = 1 + rand.nextInt(roleList.size());
+        for (int j = 0; j < randomRoleCount; j++) {
+            Role requiredRole = new Role();
+            requiredRole.setRole(roleList.get(rand.nextInt(roleList.size())));
+            Optional<Role> existingRole = roleDataService.findByRole(requiredRole.getRole());
+            if (existingRole.isPresent()) {
+                requiredRolesSet.add(existingRole.get());
+            } else {
+                requiredRole = roleDataService.saveAndFlush(requiredRole);
+                requiredRolesSet.add(requiredRole);
+            }
+        }
+        return requiredRolesSet;
     }
 
-    public User addNewUser(User user) throws Exception {
-        Optional<User> optionalUser = userDataService.findByName(user.getName());
-        if (optionalUser.isPresent()) {
-            throw new Exception("User already exists.");
+    private static void addRandomPostsToUser(User user) {
+        Random rand = new Random();
+        int postCount = 1 + rand.nextInt(5);  // Add random posts to user (1-5)
+        List<Post> posts = new ArrayList<>();
+        for (int j = 0; j < postCount; j++) {
+            Post post = new Post();
+            post.setTitle("Post " + (j + 1) + " for " + user.getName());
+            post.setUser(user);
+            posts.add(post);
         }
+        user.setPosts(posts);
+    }
+
+
+    public User addNewUser(User user) throws Exception {
+        checkUserIfExists(user);
+        addValidRolesToUser(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userDataService.saveAndFlush(user);
+    }
+
+    private void addValidRolesToUser(User user) throws Exception {
         Set<Role> validRoles = new HashSet<>();
-        for(Role role: user.getRoles()) {
+        for (Role role : user.getRoles()) {
             Optional<Role> existingRole = roleDataService.findByRole(role.getRole());
-            if(existingRole.isPresent()){
+            if (existingRole.isPresent()) {
                 validRoles.add(existingRole.get());
             } else {
                 validRoles.add(role);
             }
         }
         user.setRoles(validRoles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userDataService.saveAndFlush(user);
+    }
+
+    private void checkUserIfExists(User user) throws Exception {
+        Optional<User> optionalUser = userDataService.findByName(user.getName());
+        if (optionalUser.isPresent()) {
+            throw new Exception("User already exists.");
+        }
     }
 
     public void addNewAdmin() {

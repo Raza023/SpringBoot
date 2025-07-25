@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/security")
+@RequestMapping("/api/v1/security")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @PostMapping("/add-dummy-users")   //by passed security
-    public String addDummyUsers() {
+    public String addDummyUsers() throws Exception {
         int count = userBusiness.addDummyUsers(100);
         return count + " dummy users added.";
     }
