@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 /*
+How to get app password for spring.mail.password=${MAIL_PASSWORD}. Follow this link:
 https://support.cloudways.com/en/articles/5131076-how-to-configure-gmail-smtp#h_064a32f5ea
 */
 @Component

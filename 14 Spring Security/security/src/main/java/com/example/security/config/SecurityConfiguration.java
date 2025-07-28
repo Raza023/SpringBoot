@@ -124,9 +124,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/v1/security/welcome", "/api/v1/security/add-dummy-users",
-                                        "/h2-console/**").permitAll()
-                                .requestMatchers("/api/v1/security/**").authenticated()
+                                auth.requestMatchers("/api/v1/security/welcome", "/api/v1/security/add-dummy-users",
+                                                "/h2-console/**").permitAll()
+                                        .requestMatchers("/api/v1/security/**").authenticated()
+                        //.anyRequest().authenticated()  // all other URLs be secured (e.g., /home, /api/other, /xyz)
+                        // otherwise access denied (403 Forbidden) //All other URLs (e.g., /home, /api/other, /xyz) → not accessible
                 )
                 .httpBasic(Customizer.withDefaults()).build();    //basic auth, it gives pop up
         //.formLogin(Customizer.withDefaults()).build();  //it gives form for login on /login

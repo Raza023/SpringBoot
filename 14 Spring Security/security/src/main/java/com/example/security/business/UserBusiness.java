@@ -1,18 +1,16 @@
 package com.example.security.business;
 
+import com.example.security.model.Post;
 import com.example.security.model.User;
 import com.example.security.model.UserDto;
-import com.example.security.model.Post;
 import com.example.security.repository.UserDataService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
-
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +35,7 @@ public class UserBusiness {
 
     /**
      * Get all users without posts.
-     * 
+     *
      * @return list of UserDto
      */
     @Transactional(readOnly = true)
@@ -55,7 +53,7 @@ public class UserBusiness {
 
     /**
      * Get all users with their posts.
-     * 
+     *
      * @return list of UserDto
      */
     @Transactional(readOnly = true)
@@ -70,7 +68,7 @@ public class UserBusiness {
 
     /**
      * Add multiple random dummy users.
-     * 
+     *
      * @param count number of users to add
      * @return number of users added
      */
