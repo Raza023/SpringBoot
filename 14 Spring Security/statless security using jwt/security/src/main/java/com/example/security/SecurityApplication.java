@@ -23,7 +23,7 @@ public class SecurityApplication {
     @PostConstruct
     public void initUsers() {
         List<User> users = Stream.of(
-                new User(null, "javatechie", passwordEncoder.encode("password"),
+                new User(null, "hassan", passwordEncoder.encode("password"),
                         new ArrayList<>(Arrays.asList("ROLE_ADMIN", "ROLE_HR")), new ArrayList<>()),
                 new User(null, "user1", passwordEncoder.encode("password1"),
                         new ArrayList<>(List.of("ROLE_ADMIN")), new ArrayList<>()),
