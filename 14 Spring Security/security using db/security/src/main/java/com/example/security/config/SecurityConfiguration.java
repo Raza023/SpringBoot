@@ -73,7 +73,7 @@ public class SecurityConfiguration {
     /*
     @Bean
     public UserDetailsService userDetailsService() {
-         return new UserInfoUserDetailsService();
+        return new UserInfoUserDetailsService();
     }
      */
 
