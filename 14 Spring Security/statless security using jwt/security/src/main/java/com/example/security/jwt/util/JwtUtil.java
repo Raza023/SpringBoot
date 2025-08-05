@@ -1,4 +1,4 @@
-package com.example.security.util;
+package com.example.security.jwt.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -26,7 +26,7 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    ///////////////////////////GenerateToken///////////////////////////
+    /////////////////////////// GenerateToken///////////////////////////
 
     /**
      * Function used to create token for stateless authentication.
@@ -49,7 +49,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    ///////////////////////////validateToken///////////////////////////
+    /////////////////////////// validateToken///////////////////////////
 
     /**
      * Function used to validate token.
@@ -89,4 +89,3 @@ public class JwtUtil {
     }
 
 }
-

@@ -1,4 +1,4 @@
-package com.example.security.filter;
+package com.example.security.jwt.exceptionhandling;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -23,15 +23,16 @@ public class SecurityApplication {
     @PostConstruct
     public void initUsers() {
         List<User> users = Stream.of(
-                new User(null, "hassan", passwordEncoder.encode("password"),
-                        new ArrayList<>(Arrays.asList("ROLE_ADMIN", "ROLE_HR")), new ArrayList<>()),
-                new User(null, "user1", passwordEncoder.encode("password1"),
-                        new ArrayList<>(List.of("ROLE_ADMIN")), new ArrayList<>()),
-                new User(null, "user2", passwordEncoder.encode("password2"),
-                        new ArrayList<>(List.of("ROLE_USER")), new ArrayList<>()),
-                new User(null, "user3", passwordEncoder.encode("password3"),
-                        new ArrayList<>(List.of("ROLE_HR")), new ArrayList<>())
-        ).collect(Collectors.toList());
+                        new User(null, "hassan", passwordEncoder.encode("password"),
+                                new ArrayList<>(Arrays.asList("ROLE_ADMIN", "ROLE_HR")),
+                                new ArrayList<>()),
+                        new User(null, "user1", passwordEncoder.encode("password1"),
+                                new ArrayList<>(List.of("ROLE_ADMIN")), new ArrayList<>()),
+                        new User(null, "user2", passwordEncoder.encode("password2"),
+                                new ArrayList<>(List.of("ROLE_USER")), new ArrayList<>()),
+                        new User(null, "user3", passwordEncoder.encode("password3"),
+                                new ArrayList<>(List.of("ROLE_HR")), new ArrayList<>()))
+                .collect(Collectors.toList());
         userDataService.saveAllAndFlush(users);
     }
 

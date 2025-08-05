@@ -1,8 +1,8 @@
 package com.example.security.config;
 
-import com.example.security.filter.JwtAccessDeniedHandler;
-import com.example.security.filter.JwtAuthenticationEntryPoint;
-import com.example.security.filter.JwtFilter;
+import com.example.security.jwt.exceptionhandling.JwtAccessDeniedHandler;
+import com.example.security.jwt.exceptionhandling.JwtAuthenticationEntryPoint;
+import com.example.security.jwt.filter.JwtFilter;
 import com.example.security.repository.UserDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    /////////////////////////////////authentication/////////////////////////////////
+    /////////////////////////////////Authentication/////////////////////////////////
 
     /**
      * Authentication using CustomUserDetailsService.
@@ -58,7 +58,7 @@ public class SecurityConfiguration {
     ///////////////////////////Authorization///////////////////////////
 
     /**
-     * Authorization.
+     * Authorization using SecurityFilterChain.
      *
      * @param http http
      * @return SecurityFilterChain

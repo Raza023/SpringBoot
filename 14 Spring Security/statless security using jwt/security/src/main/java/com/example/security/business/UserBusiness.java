@@ -5,10 +5,12 @@ import com.example.security.model.User;
 import com.example.security.model.UserDto;
 import com.example.security.repository.UserDataService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserBusiness {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserDataService userDataService;
 
     /**
@@ -79,6 +82,8 @@ public class UserBusiness {
         for (int i = 0; i < count; i++) {
             User user = new User();
             user.setName("DummyUser" + random.nextInt(100000));
+            user.setPassword(passwordEncoder.encode(user.getName()));
+            user.setRoles(Collections.singletonList("ROLE_USER"));
 
             // Add random posts to user (1-5)
             int postCount = 1 + random.nextInt(5);
