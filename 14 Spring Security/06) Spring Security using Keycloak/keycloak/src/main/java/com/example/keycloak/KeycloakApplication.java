@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KeycloakApplication {
 
-	//Url: http://localhost:9190/emp/v1
-	public static void main(String[] args) {
-		SpringApplication.run(KeycloakApplication.class, args);
-	}
+    //Url: http://localhost:9090/api/v1
+    public static void main(String[] args) {
+        SpringApplication.run(KeycloakApplication.class, args);
+    }
 
 }

@@ -1,6 +1,6 @@
 keycloak:
-  realm: realmname  //give your realm name
+  realm: realmname
   auth-server-url: http://localhost:8180/auth
-  resource: keycloak-client-one   //give your client ID
+  resource: client-one
   public-client: true
   bearer-only: true

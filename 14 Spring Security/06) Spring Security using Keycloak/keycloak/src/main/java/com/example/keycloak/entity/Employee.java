@@ -5,11 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
 @Entity
-@Data
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
@@ -28,4 +30,5 @@ public class Employee {
         this.name = name;
         this.salary = salary;
     }
+
 }
