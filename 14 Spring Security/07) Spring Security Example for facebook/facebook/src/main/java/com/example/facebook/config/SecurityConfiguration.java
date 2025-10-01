@@ -68,9 +68,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for stateless JWT
                 .authorizeHttpRequests(auth ->  // Set authorization rules
-                        auth.requestMatchers("/api/v1/security/welcome", "/api/v1/security/add-dummy-users",
+                        auth.requestMatchers("/api/v1/join", "/api/v1/security/add-dummy-users",
                                         "/h2-console/**", "/api/v1/security/authenticate").permitAll()
-                                .requestMatchers("/api/v1/security/**").authenticated()
+                                .requestMatchers("/api/v1/**").authenticated()
                                 .anyRequest().authenticated() // all other URLs will be secured
                         // (e.g., /home, /api/other, /xyz)
                         // otherwise access denied (403 Forbidden) //All other URLs (e.g., /home, /api/other, /xyz) → not accessible

@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserDataService extends JpaRepository<User, Long> {
 
-    Optional<User> findByName(String username);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.posts")
-    List<User> findAllWithPosts();
+//    @Query("SELECT u FROM User u LEFT JOIN FETCH u.posts")
+//    List<User> findAllWithPosts();
+
+    Optional<User> findByUserName(String userName);
 
 }

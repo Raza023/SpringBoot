@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -29,6 +30,18 @@ public class UserController {
     private final UserDataService userDataService;
     private final PasswordEncoder passwordEncoder;
 
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<User> loadUsers() {
+        return userDataService.findAll();
+    }
+
+    @GetMapping("/test")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String testUserAccess() {
+        return "User can access this!";
+    }
+
     @PostMapping("/join")
     public String joinGroup(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -38,6 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/access/{userId}/{userRole}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     public String grantAccessToUser(@PathVariable int userId, @PathVariable String userRole, Principal principal) {
         User granteeUser = userDataService.findById((long) userId).orElse(null);
         if (ObjectUtils.isEmpty(granteeUser)) {
@@ -78,7 +92,7 @@ public class UserController {
     }
 
     private Optional<User> getLoggedInUser(Principal principal) {
-        return userDataService.findByName(principal.getName());
+        return userDataService.findByUserName(principal.getName());
     }
 
 }
