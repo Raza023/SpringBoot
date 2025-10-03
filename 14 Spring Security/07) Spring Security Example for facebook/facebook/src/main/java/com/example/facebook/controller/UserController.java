@@ -2,6 +2,7 @@ package com.example.facebook.controller;
 
 import com.example.facebook.entity.User;
 import com.example.facebook.repository.UserDataService;
+import jakarta.annotation.PostConstruct;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +30,17 @@ public class UserController {
     private final UserDataService userDataService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping
+    @PostConstruct
+    private void createAdmin() {
+        User user = new User();
+        user.setUserName("admin");
+        user.setPassword(passwordEncoder.encode("admin"));
+        user.setActive(true);
+        user.setRoles(new ArrayList<>(List.of(DEFAULT_ROLE, ADMIN_ROLE)));
+        userDataService.saveAndFlush(user);
+    }
+
+    @GetMapping("/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> loadUsers() {
         return userDataService.findAll();
@@ -44,10 +54,13 @@ public class UserController {
 
     @PostMapping("/join")
     public String joinGroup(@RequestBody User user) {
+        if (ObjectUtils.isEmpty(user)) {
+            return "user did not provide any data to add.";
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(new ArrayList<>(List.of(DEFAULT_ROLE)));
+        user.setRoles(new ArrayList<>(List.of(DEFAULT_ROLE)));   //only default role should be given to all new users.
         userDataService.save(user);
-        return "Hi {" + user.getUserName() + "}! Welcome to group.";
+        return "Hi " + user.getUserName() + "! Welcome to group.";
     }
 
     @GetMapping("/access/{userId}/{userRole}")
@@ -67,7 +80,7 @@ public class UserController {
                 } else {
                     granteeUser.getRoles().add(MODERATOR_ROLE);
                     userDataService.save(granteeUser);
-                    return "Moderator role is granted to the user with id {"+userId+"}.";
+                    return "Moderator role is granted to the user with id {" + userId + "}.";
                 }
             } else if (ADMIN_ROLE.equals(userRole) && granterUserRoles.contains(ADMIN_ROLE)) {
                 if (granteeUser.getRoles().contains(ADMIN_ROLE)) {
@@ -75,7 +88,7 @@ public class UserController {
                 } else {
                     granteeUser.getRoles().add(ADMIN_ROLE);
                     userDataService.save(granteeUser);
-                    return "Admin role is granted to the user with id {"+userId+"}.";
+                    return "Admin role is granted to the user with id {" + userId + "}.";
                 }
             }
         }
