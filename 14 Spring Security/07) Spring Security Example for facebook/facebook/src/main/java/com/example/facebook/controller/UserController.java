@@ -92,7 +92,7 @@ public class UserController {
                 }
             }
         }
-        return "";
+        return "You don't have access to assign this Role to user.";
     }
 
     private boolean hasModeratorAccess(List<String> roles) {
