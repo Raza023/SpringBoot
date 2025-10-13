@@ -119,6 +119,23 @@ public class SecurityConfiguration {
 
     /**
      * Authorization.
+     * <ol>
+     *     <li>We don't have to <b><i>disable csrf</b></i> because we are using stateful session-based applications:
+     *          <ol>
+     *              <li>Optional: disable csrf only if you're using POST on h2-console login page <b>(never disable it in production)</b></li>
+     *              <li>Optional: disable frame option allows iframe for H2 console <b>(never disable it in production)</b></li>
+     *          </ol>
+     *     </li>
+     *     <li>Anything not defined in request matcher is implicitly secured.
+     *     Like /api/v1/security → doesn't match any of these, so it's secured implicitly.</li>
+     *     <li>By using <b><i>.authenticated()</b></i> "Users authenticated using a "remember-me" cookie (auto-login from previous session)".</li>
+     *     <li>By using <b><i>.fullyAuthenticated()</b></i> ""Remember-me" authentication is not enough here.
+     *     The user must have logged in again manually (via form login, basic auth, etc.) during this session."</li>
+     *     <li><b><i>.httpBasic(Customizer.withDefaults())</b></i> is used for basic auth, it gives pop up.</li>
+     *     <li><b><i>.formLogin(Customizer.withDefaults())</b></i> is used for basic auth, it gives form for login on /login.</li>
+     * </ol>
+     *
+     *
      *
      * @param http http
      * @return SecurityFilterChain
@@ -126,21 +143,15 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        //we don't have to disable csrf because we are using stateful session-based applications
-        // Optional: disable csrf only if you're using POST on h2-console login page (never disable it in production)
-        // Optional: disable frame option allows iframe for H2 console (never disable it in production)
-        //Anything not defined in request matcher is implicitly secured.
-        //Like /api/v1/security → doesn't match any of these, so it's secured implicitly.
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/v1/security/welcome", "/api/v1/security/add-dummy-users",
                                         "/h2-console/**").permitAll()
-                                .requestMatchers("/api/v1/security/**").authenticated()
+                                .requestMatchers("/api/v1/security/**").fullyAuthenticated()
                 )
-                .httpBasic(Customizer.withDefaults()).build();    //basic auth, it gives pop up
-        //.formLogin(Customizer.withDefaults()).build();  //it gives form for login on /login
+                .httpBasic(Customizer.withDefaults()).build();
     }
 
     /*
