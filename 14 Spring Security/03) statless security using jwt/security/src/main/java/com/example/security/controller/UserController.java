@@ -100,17 +100,22 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public String generateToken(@RequestBody UserDto userDto) throws Exception {
+        String token = "";
         try {
-            authenticationManager.authenticate(
+            Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDto.getName(), userDto.getPassword()));
+            if (authentication.isAuthenticated()) {
+                token = jwtUtil.generateToken(userDto.getName());
+                log.info("JWT: " + token);
+                UserDetails userDetails = new User(userDto.getName(), userDto.getPassword(), new ArrayList<>());
+                log.debug("Valid: " + jwtUtil.validateToken(token, userDetails));
+                log.debug("Username: " + jwtUtil.extractUsername(token));
+            } else {
+                throw new Exception("invalid username/password");
+            }
         } catch (Exception ex) {
             throw new Exception("invalid username/password");
         }
-        String token = jwtUtil.generateToken(userDto.getName());
-        log.info("JWT: " + token);
-        UserDetails userDetails = new User(userDto.getName(), userDto.getPassword(), new ArrayList<>());
-        log.debug("Valid: " + jwtUtil.validateToken(token, userDetails));
-        log.debug("Username: " + jwtUtil.extractUsername(token));
         return token;
     }
 

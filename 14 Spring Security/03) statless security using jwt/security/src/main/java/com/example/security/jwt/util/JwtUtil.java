@@ -18,6 +18,8 @@ public class JwtUtil {
 
     private static final String SECRET = "your-32-char-super-secret-key!!your-32-char-super-secret-key!!";
     // must be 64 bytes for HS256
+    //https://generate-random.org/encryption-keys
+    //(From above link we can create key of 64 char and 256 bits - hexadecimal key)
 
     private SecretKey key;
 
