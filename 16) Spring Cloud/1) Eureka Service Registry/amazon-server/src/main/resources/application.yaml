@@ -1,0 +1,12 @@
+eureka:
+  client:
+    #we can't use it as a client
+    register-with-eureka: false
+    fetch-registry: false
+server:
+  #server port
+  port: 8761
+spring:
+  application:
+    #application name
+    name: AMAZON-SERVER
