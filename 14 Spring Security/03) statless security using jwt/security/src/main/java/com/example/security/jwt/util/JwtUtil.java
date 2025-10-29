@@ -66,6 +66,7 @@ public class JwtUtil {
     }
 
     private Boolean isTokenExpired(String token) {
+        //before current date means it's not expired yet.
         return extractExpiration(token).before(new Date());
     }
 
