@@ -1,0 +1,41 @@
+#I have not given any port to this project/module. So by default port will be 8080.
+spring:
+  cloud:
+    discovery:
+      enabled: true
+    loadbalancer:
+      enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: swiggy-service
+          uri: lb://SWIGGY-SERVICE
+          predicates:
+            - Path=/swiggy/**
+#          filters:
+#            - AuthenticationFilter
+
+        - id: restaurant-service
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/restaurant/**
+#          filters:
+#            - AuthenticationFilter
+
+#        - id: identity-service
+#          uri: lb://IDENTITY-SERVICE
+#          predicates:
+#            - Path=/auth/**
+  main:
+    web-application-type: reactive
+  application:
+    name: API-GATEWAY
+server:
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/

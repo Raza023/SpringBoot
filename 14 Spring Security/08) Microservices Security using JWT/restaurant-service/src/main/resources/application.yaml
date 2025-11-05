@@ -1,0 +1,16 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: RESTAURANT-SERVICE
+eureka:
+  client:
+    #This service will be registered in the eureka server.
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    #hostname of instance.
+    prefer-ip-address: true
+    hostname: localhost

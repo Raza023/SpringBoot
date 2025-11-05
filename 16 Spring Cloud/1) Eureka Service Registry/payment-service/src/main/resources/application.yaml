@@ -1,0 +1,18 @@
+eureka:
+  client:
+    #This service will be registered in the eureka server.
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      #Link to eureka server.
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    #hostname of instance.
+    hostname: localhost
+server:
+  #port of provider service
+  port: 8585
+spring:
+  application:
+    #provider service name
+    name: PAYMENT-SERVICE
