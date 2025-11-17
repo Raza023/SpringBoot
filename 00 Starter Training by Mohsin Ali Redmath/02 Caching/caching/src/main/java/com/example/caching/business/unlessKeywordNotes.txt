@@ -1,0 +1,150 @@
+Here are **clean, correct, ready-to-use examples** showing how to use **`unless`** in your existing caching methods.
+I’ll show **where and how to apply it**, and what each condition means.
+
+---
+
+# ✅ **What is `unless`?**
+
+`unless` **prevents caching** when the condition is `true`.
+It is **checked AFTER method execution** (because it can inspect `#result`).
+
+Example:
+
+```java
+@Cacheable(value = "userIdCache", key = "#id", unless = "#result == null")
+```
+
+→ Cache only if method returned a non-null result.
+
+---
+
+# ✅ Add `unless` to your methods
+
+Below are improved versions of your methods **with `unless` added safely and correctly**.
+
+---
+
+## ✅ 1. Cache Get User By ID
+
+Cache **ONLY when user exists** (skip caching null).
+
+```java
+@Cacheable(
+    value = "userIdCache",
+    key = "#id",
+    unless = "#result == null"
+)
+@Transactional
+public UserDto getUserById(Long id) {
+    return userDataService.findById(id)
+            .map(UserDto::getUserDto)
+            .orElse(null);
+}
+```
+
+---
+
+## ✅ 2. Cache Get User By Email
+
+Same logic—no cache if user not found.
+
+```java
+@Cacheable(
+    value = "userEmailCache",
+    key = "#email",
+    unless = "#result == null"
+)
+@Transactional
+public UserDto getUserByEmail(String email) {
+    return userDataService.findByEmail(email)
+            .map(UserDto::getUserDto)
+            .orElse(null);
+}
+```
+
+---
+
+## ✅ 3. Save User — Avoid caching invalid users
+
+Cache only if the user has both ID & email (never cache corrupted results).
+
+```java
+@Caching(put = {
+        @CachePut(
+            value = "userIdCache",
+            key = "#result.id",
+            unless = "#result == null or #result.id == null"
+        ),
+        @CachePut(
+            value = "userEmailCache",
+            key = "#result.email",
+            unless = "#result == null or #result.email == null"
+        )
+})
+@Transactional
+public UserDto saveUser(User user) {
+    return UserDto.getUserDto(userDataService.saveAndFlush(user));
+}
+```
+
+---
+
+## ✅ 4. Update User — Only cache when update was successful
+
+If `id` doesn’t exist, method returns `null` → skip caching.
+
+```java
+@Caching(put = {
+        @CachePut(
+            value = "userIdCache",
+            key = "#result.id",
+            unless = "#result == null"
+        ),
+        @CachePut(
+            value = "userEmailCache",
+            key = "#result.email",
+            unless = "#result == null"
+        )
+})
+@Transactional
+public UserDto updateUser(Long id, User updatedUser) {
+    return userDataService.findById(id)
+            .map(existingUser -> {
+                existingUser.setName(updatedUser.getName());
+                existingUser.setEmail(updatedUser.getEmail());
+                return userDataService.saveAndFlush(existingUser);
+            }).map(UserDto::getUserDto).orElse(null);
+}
+```
+
+---
+
+## ❗ 5. Delete User — `unless` **cannot be used here**
+
+Because:
+
+* `@CacheEvict` executes **before** method
+* There is **no #result object**
+* And you already fetch local `user`
+
+So **no unless needed**, your delete logic is already correct.
+
+---
+
+# 🎉 Summary of Best Practices for `unless`
+
+| Use Case           | Should Use `unless`? | Why                              |
+| ------------------ | -------------------- | -------------------------------- |
+| `getUserById()`    | ✔ Yes                | Avoid caching null results       |
+| `getUserByEmail()` | ✔ Yes                | Avoid caching null results       |
+| `saveUser()`       | ✔ Yes                | Avoid caching invalid user       |
+| `updateUser()`     | ✔ Yes                | Avoid caching null update        |
+| `deleteUser()`     | ❌ No                 | `unless` doesn’t work with evict |
+
+---
+
+If you want, I can also:
+✅ Add `condition = ""` examples
+✅ Add Redis TTL per cache
+✅ Show how to combine `condition` + `unless`
+Just tell me!
