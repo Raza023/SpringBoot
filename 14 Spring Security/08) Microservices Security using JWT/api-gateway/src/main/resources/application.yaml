@@ -1,4 +1,4 @@
-#I have not given any port to this project/module. So by default port will be 8080.
+#If I have not given any port to this project/module. So by default port will be 8080.
 spring:
   cloud:
     discovery:
@@ -25,10 +25,10 @@ spring:
 #          filters:
 #            - AuthenticationFilter
 
-#        - id: identity-service
-#          uri: lb://IDENTITY-SERVICE
-#          predicates:
-#            - Path=/auth/**
+        - id: identity-service
+          uri: lb://IDENTITY-SERVICE
+          predicates:
+            - Path=/auth/**
   main:
     web-application-type: reactive
   application:

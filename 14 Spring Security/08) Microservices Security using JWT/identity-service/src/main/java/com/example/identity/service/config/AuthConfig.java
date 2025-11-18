@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -57,6 +58,11 @@ public class AuthConfig {
 
     /**
      * Authorization using SecurityFilterChain.
+     * <p>
+     * we don't have to disable csrf if we are using stateful session-based applications. <br/>Optional: disable csrf if
+     * you're using POST on h2-console login page (never disable it in production). <br/>Optional: disable frame option
+     * allows iframe for H2 console (never disable it in production).
+     * </p>
      *
      * @param http http
      * @return SecurityFilterChain
@@ -65,8 +71,10 @@ public class AuthConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for stateless JWT
+                .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable))
                 .authorizeHttpRequests(auth ->  // Set authorization rules
-                                auth.requestMatchers("/auth/register", "/auth/token", "/auth/validate").permitAll()
+                                auth.requestMatchers("/auth/register", "/auth/token", "/auth/validate/**",
+                                                "/h2-console/**").permitAll()
                                         .requestMatchers("/api/v1/security/**").authenticated()
                         //.anyRequest().authenticated()  // all other URLs will be secured (e.g., /home, /api/other, /xyz)
                         // otherwise access denied (403 Forbidden) //All other URLs (e.g., /home, /api/other, /xyz) → not accessible
