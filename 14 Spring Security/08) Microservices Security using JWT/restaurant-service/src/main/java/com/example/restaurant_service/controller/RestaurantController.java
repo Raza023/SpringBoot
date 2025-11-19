@@ -20,6 +20,4 @@ public class RestaurantController {
         return restaurantService.getOrderStatus(orderId);
     }
 
-
-
 }

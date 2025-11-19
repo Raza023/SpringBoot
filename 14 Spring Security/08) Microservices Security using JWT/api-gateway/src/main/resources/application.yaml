@@ -15,15 +15,15 @@ spring:
           uri: lb://SWIGGY-SERVICE
           predicates:
             - Path=/swiggy/**
-#          filters:
-#            - AuthenticationFilter
+          filters:
+            - AuthenticationFilter
 
         - id: restaurant-service
           uri: lb://RESTAURANT-SERVICE
           predicates:
             - Path=/restaurant/**
-#          filters:
-#            - AuthenticationFilter
+          filters:
+            - AuthenticationFilter
 
         - id: identity-service
           uri: lb://IDENTITY-SERVICE

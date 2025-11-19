@@ -1,38 +1,42 @@
 package com.example.api.gateway.filter;
 
 import io.micrometer.common.util.StringUtils;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 @Component
-@RequiredArgsConstructor
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-    private final RouteValidator validator;
-    private final RestTemplate restTemplate;
+    @Autowired
+    private RouteValidator validator;
+    //private final RestTemplate restTemplate;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    private String extractUsernameFromToken(String token) {
-        try {
-            String[] chunks = token.split("\\.");
-            String payload = new String(java.util.Base64.getUrlDecoder().decode(chunks[1]));
-            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            return mapper.readTree(payload).get("sub").asText();   // or "username"
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid JWT Token: " + e.getMessage());
-        }
+    public AuthenticationFilter() {
+        super(Config.class);
     }
 
+//    private String extractUsernameFromToken(String token) {
+//        try {
+//            String[] chunks = token.split("\\.");
+//            String payload = new String(java.util.Base64.getUrlDecoder().decode(chunks[1]));
+//            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+//            return mapper.readTree(payload).get("sub").asText();   // or "username"
+//        } catch (Exception e) {
+//            throw new RuntimeException("Invalid JWT Token: " + e.getMessage());
+//        }
+//    }
 
     @Override
     public GatewayFilter apply(AuthenticationFilter.Config config) {
-
         return ((exchange, chain) -> {
             if (validator.isSecured.test(exchange.getRequest())) {
                 //Header contains token or not.
@@ -45,22 +49,29 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 }
 
                 try {
-                    String username = extractUsernameFromToken(token);
+                    // String username = extractUsernameFromToken(token);
                     // Call to REST client
-                    Boolean response = restTemplate.getForObject("http://IDENTITY-SERVICE/validate/"+username+"?token=", Boolean.class);
-                    // Process response
+                    // Boolean response = restTemplate.getForObject(
+                    //         "http://IDENTITY-SERVICE/validate/" + username + "?token=", Boolean.class);
+                    // RestClient call to validate token is not good security-wise,
+                    // so we have to validate token in same service.
+                    jwtUtil.validateToken(token);
                 } catch (HttpClientErrorException e) {
                     // Handle 4xx client errors (e.g., 404 Not Found, 400 Bad Request)
                     System.err.println("Client error: " + e.getStatusCode() + " - " + e.getResponseBodyAsString());
+                    throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
                 } catch (HttpServerErrorException e) {
                     // Handle 5xx server errors (e.g., 500 Internal Server Error)
                     System.err.println("Server error: " + e.getStatusCode() + " - " + e.getResponseBodyAsString());
+                    throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
                 } catch (RestClientException e) {
                     // Handle other RestTemplate-specific exceptions (e.g., network issues, serialization errors)
                     System.err.println("REST client error: " + e.getMessage());
+                    throw new RestClientException("REST client error: " + e.getMessage());
                 } catch (Exception e) {
                     // Catch any other unexpected exceptions
                     System.err.println("An unexpected error occurred: " + e.getMessage());
+                    throw new RuntimeException("An unexpected error occurred: " + e.getMessage());
                 }
 
             }

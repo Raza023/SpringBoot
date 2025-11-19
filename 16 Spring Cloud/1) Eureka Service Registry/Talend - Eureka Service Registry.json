@@ -1,0 +1,88 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "a3202a5c-48da-47d4-ba28-2781e233a3c2",
+        "name": "springboot-office"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Service",
+            "description": "",
+            "id": "6babf04c-0701-45be-ae70-a7d565915724",
+            "name": "Eureka Service Registry"
+          },
+          "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8585",
+                  "path": "/payment-provider/pay-now/4000"
+                },
+                "id": "92099cc2-bd8b-4db9-9e57-ed59b65bab57",
+                "name": "http://localhost:8585/payment-provider/pay-now/{price}    -- payment provider service",
+                "headers": []
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:9999",
+                  "path": "/shopping/amazon-payment/4000"
+                },
+                "id": "ea3f8d33-74ef-4555-ab2e-de020e8045af",
+                "name": "http://localhost:9999/shopping/amazon-payment/{price}    -- without eureka service registry.",
+                "headers": []
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
