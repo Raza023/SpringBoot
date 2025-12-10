@@ -1,0 +1,402 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "a3202a5c-48da-47d4-ba28-2781e233a3c2",
+        "name": "springboot-office"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Service",
+            "description": "Microservices Security using JWT and eureka service registry\n",
+            "id": "b8eb8e15-1408-4506-a5e8-f4f090c57ed1",
+            "name": "microservices with jwt"
+          },
+          "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"name\" : \"Ali\",\n  \"email\" : \"ali@gmail.com\",\n  \"password\" : \"ali\",\n  \"roles\" : [\n    \"ROLE_USER\"\n  ]\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8079",
+                  "path": "/auth/register"
+                },
+                "id": "7ff5a047-ac88-4155-a1a8-23879cc8d7d3",
+                "name": "http://localhost:8079/auth/register   (directly register user from identity-service)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"username\" : \"Ali\",\n  \"password\" : \"ali\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8079",
+                  "path": "/auth/token"
+                },
+                "id": "9a89183c-9052-4563-b4d0-c1d0685870ba",
+                "name": "http://localhost:8079/auth/token  (directly create token using identity-service)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"username\" : \"Ali\",\n  \"password\" : \"ali\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "name": "token",
+                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbGkiLCJpYXQiOjE3NjM1Mzc0ODEsImV4cCI6MTc2MzUzODM4MX0.pWNEYV8Jx2VC8fOdOggc7z5_ctQfx2_PFuoQ6GO9Qixokj20RRe0Fs6nO9kW47TZ1uHPN2wFU218BVUgGov-jA"
+                      }
+                    ]
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8079",
+                  "path": "/auth/validate/Ali"
+                },
+                "id": "4241fb69-96d5-4870-be27-facbf5d36534",
+                "name": "http://localhost:8079/auth/validate/{username} (directly validate token using identity-service)",
+                "headers": []
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"name\" : \"Hassan\",\n  \"email\" : \"hassan@gmail.com\",\n  \"password\" : \"hassan\",\n  \"roles\" : [\n    \"ROLE_USER\"\n  ]\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/auth/register"
+                },
+                "id": "2491b262-9650-4919-9556-4988a6d8f8bc",
+                "name": "http://localhost:8080/auth/register  (register user from api gateway)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"username\" : \"Ali\",\n  \"password\" : \"ali\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/auth/token"
+                },
+                "id": "be64deca-9293-4032-8e72-0367752a0f2b",
+                "name": "http://localhost:8080/auth/token  (create token using api-gateway)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"username\" : \"Ali\",\n  \"password\" : \"ali\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": [
+                      {
+                        "enabled": true,
+                        "name": "token",
+                        "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbGkiLCJpYXQiOjE3NjM1NDc0MDUsImV4cCI6MTc2MzU0ODMwNX0.hy9lDym1SDk5bx58UZnlv7nF7rSb1wpCWc9dfWvSeCGC2ptDlHWwgjkHbg-5UktJfhbSyXAForkry7bZ2Iac6g"
+                      }
+                    ]
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/auth/validate/Ali"
+                },
+                "id": "c99f7036-7fec-4fa1-952e-5e7a8184208b",
+                "name": "http://localhost:8080/auth/validate/{username} (create token using api-gateway)",
+                "headers": []
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/restaurant/order/status/orderId001"
+                },
+                "id": "54a215e8-667c-4242-874b-155e0c86e2f8",
+                "name": "http://localhost:8080/restaurant/order/status/orderId001  (call via api-gateway)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbGkiLCJpYXQiOjE3NjM1NDc0MDUsImV4cCI6MTc2MzU0ODMwNX0.hy9lDym1SDk5bx58UZnlv7nF7rSb1wpCWc9dfWvSeCGC2ptDlHWwgjkHbg-5UktJfhbSyXAForkry7bZ2Iac6g"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/swiggy/orderId001"
+                },
+                "id": "8e1f1549-88e4-4b6f-ae03-38753965872e",
+                "name": "http://localhost:8080/swiggy/orderId001  (call via api-gateway)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbGkiLCJpYXQiOjE3NjM1NDc0MDUsImV4cCI6MTc2MzU0ODMwNX0.hy9lDym1SDk5bx58UZnlv7nF7rSb1wpCWc9dfWvSeCGC2ptDlHWwgjkHbg-5UktJfhbSyXAForkry7bZ2Iac6g"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8081",
+                  "path": "/swiggy/orderId001"
+                },
+                "id": "7f248f6b-f0bc-45f0-bf95-7a127c0b1e14",
+                "name": "http://localhost:8081/swiggy/orderId001   (direct call to swiggy app)",
+                "headers": []
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8082",
+                  "path": "/restaurant/order/status/orderId001"
+                },
+                "id": "39d21c86-d4a4-4a0d-845c-f9eb99416861",
+                "name": "http://localhost:8082/restaurant/order/status/orderId001 (direct call to restaurant app)",
+                "headers": []
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

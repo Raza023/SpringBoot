@@ -3,12 +3,14 @@ package com.example.security.model;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
@@ -20,7 +22,8 @@ public class UserDto {
     private List<String> roles;
     private List<PostData> posts;
 
-    @Data
+    @Getter
+    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PostData {

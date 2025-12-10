@@ -8,9 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "Posts")
 public class Post {
@@ -24,7 +26,7 @@ public class Post {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "UserId")
+    @JoinColumn(name = "UserID")
     private User user;
 }
 

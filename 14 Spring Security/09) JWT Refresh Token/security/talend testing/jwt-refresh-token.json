@@ -1,0 +1,213 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "a3202a5c-48da-47d4-ba28-2781e233a3c2",
+        "name": "springboot-office"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Service",
+            "id": "cf17c967-926c-4e69-9123-ea5713ed763e",
+            "name": "JWT RefreshToken"
+          },
+          "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"name\" : \"admin\",\n  \"password\" : \"admin\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/api/v1/security/all"
+                },
+                "id": "5227df3e-eeac-45f1-a3bb-481b28a60d9b",
+                "name": "http://localhost:8080/api/v1/security/all  (only admin)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCYWJhciIsImlhdCI6MTc2NDkzMzY1OSwiZXhwIjoxNzY0OTMzNzc5fQ.IY7yWa0i735L0ZGkVbVjA6iD22U7kNFvjVb_J9PhAVZrxMhYkyKzYJ44rqOe5dCQ"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"name\" : \"Babar\",\n  \"password\" : \"Babar\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/api/v1/security/authenticate"
+                },
+                "id": "4b193935-539a-4ba9-a18b-3378a983ca02",
+                "name": "http://localhost:8080/api/v1/security/authenticate (to get token)(no authentication)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"refreshToken\" : \"d4a54b61-37c4-481e-9595-3da5cc95f4fb\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/api/v1/security/refresh"
+                },
+                "id": "f534ff18-dfcc-4352-b338-a47404d9715d",
+                "name": "http://localhost:8080/api/v1/security/refresh (to refresh token)(no authentication)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/api/v1/security/welcome"
+                },
+                "id": "d1d9ec40-271d-4c29-baf0-69b835794070",
+                "name": "http://localhost:8080/api/v1/security/welcome   (no authentication)",
+                "headers": []
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\n  \"name\" : \"admin\",\n  \"password\" : \"admin\"\n}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "localhost:8080",
+                  "path": "/api/v1/security/5"
+                },
+                "id": "f3f3b855-e72f-4e49-a347-c2563da78029",
+                "name": "http://localhost:8080/api/v1/security/{id} (any user)",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJCYWJhciIsImlhdCI6MTc2NDkzMzY1OSwiZXhwIjoxNzY0OTMzNzc5fQ.IY7yWa0i735L0ZGkVbVjA6iD22U7kNFvjVb_J9PhAVZrxMhYkyKzYJ44rqOe5dCQ"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

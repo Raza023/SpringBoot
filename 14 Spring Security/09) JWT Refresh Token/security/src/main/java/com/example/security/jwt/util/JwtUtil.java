@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUtil {
 
-    private static final String SECRET = "your-32-char-super-secret-key!!your-32-char-super-secret-key!!";
+    private static final String SECRET = "dafe1145a8b895cce2c4fd421be94581a04ac339064b7dabe981217b97e704";
+    //private static final String SECRET =
+    // "your-32-char-super-secret-key!!!your-32-char-super-secret-key!!!";  length is 62 char (it's working)
     // must be 64 bytes for HS256
     //https://generate-random.org/encryption-keys
     //(From above link we can create key of 64 char and 256 bits - hexadecimal key)
@@ -46,7 +48,7 @@ public class JwtUtil {
                 .claims(claims)
                 .subject(subject)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 2)) // 2 minutes
                 .signWith(key)
                 .compact();
     }

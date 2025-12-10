@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,9 +68,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for stateless JWT
+                .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable))
                 .authorizeHttpRequests(auth ->  // Set authorization rules
-                                auth.requestMatchers("/api/v1/security/welcome", "/api/v1/security/add-dummy-users",
-                                                "/h2-console/**", "/api/v1/security/authenticate").permitAll()
+                                auth.requestMatchers("/api/v1/security/welcome",
+                                                "/api/v1/security/add-dummy-users",
+                                                "/h2-console/**",
+                                                "/api/v1/security/authenticate",
+                                                "/api/v1/security/refresh")
+                                        .permitAll()
                                         .requestMatchers("/api/v1/security/**").authenticated()
                         //.anyRequest().authenticated()  // all other URLs will be secured (e.g., /home, /api/other, /xyz)
                         // otherwise access denied (403 Forbidden) //All other URLs (e.g., /home, /api/other, /xyz) → not accessible
