@@ -1,6 +1,5 @@
 package com.example.swagger.config;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
@@ -25,7 +24,7 @@ public class SwaggerConfig {
     public GroupedOpenApi bookApi() {
         return GroupedOpenApi.builder()
                 .group("Book API")  // Group name
-                .pathsToMatch("/book/**")  // Match paths for the book API
+                .pathsToMatch("/api/v1/books/**")  // Match paths for the book API
                 .build();
     }
 
@@ -34,7 +33,7 @@ public class SwaggerConfig {
     public GroupedOpenApi personApi() {
         return GroupedOpenApi.builder()
                 .group("Person API")  // Group name
-                .pathsToMatch("/person/**")  // Match paths for the person API
+                .pathsToMatch("/api/v1/person/**")  // Match paths for the person API
                 .build();
     }
 
