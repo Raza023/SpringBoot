@@ -13,6 +13,8 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -64,8 +67,9 @@ public class BookController {
     @PostMapping
     public ResponseEntity<Book> saveBook(
             @RequestBody @Parameter(description = "Book object to be created, it is required.",
-                    required = true) @Valid Book book) {
+                    required = true) @Valid Book book, Authentication authentication) {
         Book saved = service.saveBook(book);
+        log.info(authentication.toString());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(saved);
