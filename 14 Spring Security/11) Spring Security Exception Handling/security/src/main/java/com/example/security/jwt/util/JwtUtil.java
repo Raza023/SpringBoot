@@ -24,6 +24,7 @@ public class JwtUtil {
     private SecretKey key;
 
     @PostConstruct
+    @SuppressWarnings("squid:S6437") //Suppress Credentials should not be hard-coded
     public void initKey() {
         this.key = Keys.hmacShaKeyFor(SECRET.getBytes());
     }
