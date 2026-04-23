@@ -1,5 +1,6 @@
 package com.example.jsonpath.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import com.example.jsonpath.dto.Meta;
 import com.jayway.jsonpath.JsonPath;
 
 import lombok.RequiredArgsConstructor;
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/company")
@@ -25,7 +26,7 @@ public class CompanyController {
     private final ObjectMapper objectMapper;
 
     @GetMapping("/skills")
-    public List<String> getCompanyFirstEmployeeSkillList() {
+    public List<String> getCompanyFirstEmployeeSkillList() throws JsonProcessingException {
         CompanyResponseDto companyResponseDto = getCompanyInfo();
 
         String json = objectMapper.writeValueAsString(companyResponseDto);

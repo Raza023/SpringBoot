@@ -10,4 +10,5 @@ spring:
     password: ${test.db.password}
   profiles:
 #    include: dev
-    active: dev
+#    active: dev  #use it when you want sql server db
+    active: local

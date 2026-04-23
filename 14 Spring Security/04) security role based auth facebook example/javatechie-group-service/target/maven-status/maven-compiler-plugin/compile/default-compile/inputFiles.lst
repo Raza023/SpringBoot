@@ -1,0 +1,12 @@
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\common\UserConstant.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\config\SecurityConfig.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\controller\PostController.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\controller\UserController.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\entity\Post.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\entity\PostStatus.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\entity\User.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\JavatechieGroupServiceApplication.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\repository\PostRepository.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\repository\UserRepository.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\service\GroupUserDetails.java
+D:\Data\SpringBoot\14 Spring Security\04) security role based auth facebook example\javatechie-group-service\src\main\java\com\javatechie\group\service\GroupUserDetailsService.java

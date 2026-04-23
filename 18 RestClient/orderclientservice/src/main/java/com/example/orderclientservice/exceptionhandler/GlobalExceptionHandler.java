@@ -1,5 +1,9 @@
 package com.example.orderclientservice.exceptionhandler;
 
+import java.net.SocketTimeoutException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -9,11 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
-
-import java.net.SocketTimeoutException;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,12 +25,14 @@ public class GlobalExceptionHandler {
                 .body("Client Error: " + ex.getMessage());
     }
 
+    /*
     @ExceptionHandler(ResourceAccessException.class)
     public ResponseEntity<String> handleConnectionError(ResourceAccessException ex) {
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
                 .body("Product Service Down");
     }
+    */
 
     //REST Client Exceptions
     @ExceptionHandler(HttpServerErrorException.class)

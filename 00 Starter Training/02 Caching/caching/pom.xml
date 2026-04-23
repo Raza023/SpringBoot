@@ -4,22 +4,17 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- 🔥 Link to YOUR root -->
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.yourcompany</groupId>
+		<artifactId>SpringBoot</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../../../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.example</groupId>
-	<artifactId>caching</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>caching</name>
-	<description>Demo project for testing caching in Spring Boot</description>
-
-	<properties>
-		<java.version>21</java.version>
-	</properties>
+	<artifactId>00StarterTraining-02Caching-caching</artifactId>
+	<name>00StarterTraining-02Caching-caching</name>
+	<description>Demo project for Spring Boot Caching</description>
 
 	<dependencies>
 		<dependency>

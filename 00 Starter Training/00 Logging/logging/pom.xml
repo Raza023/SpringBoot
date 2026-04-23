@@ -4,22 +4,19 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- 🔥 Link to YOUR root -->
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.yourcompany</groupId>
+		<artifactId>SpringBoot</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../../../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.example</groupId>
-	<artifactId>logging</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>logging</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>00StarterTraining-00Logging-logging</artifactId>
+	<name>00StarterTraining-00Logging-logging</name>
+	<description>Demo project for Spring Boot Logging</description>
 
-	<properties>
-		<java.version>21</java.version>
-	</properties>
+
 
 	<dependencies>
 		<dependency>

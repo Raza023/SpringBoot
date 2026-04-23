@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.yourcompany</groupId>
+    <artifactId>SpringBoot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 👇 VERY IMPORTANT -->
+    <packaging>pom</packaging>
+
+    <!-- 🔥 Now root uses Spring Boot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.0</version>
+        <relativePath/>
+    </parent>
+
+    <!-- 🔥 Central config -->
+    <properties>
+        <java.version>21</java.version>
+    </properties>
+
+    <!-- 👇 All modules go here -->
+    <modules>
+        <module>00 Starter Training/00 Logging/logging</module>
+        <module>00 Starter Training/01 Open in view (LazyInitializationException)/exception/openinview</module>
+        <module>00 Starter Training/01 Open in view (LazyInitializationException)/solution using DTO and join fetch/openinview</module>
+        <module>00 Starter Training/02 Caching/caching</module>
+        <module>00 Starter Training/03 Logging, sql server connection/spring</module>
+        <module>00 Starter Training/04 Security/security</module>
+        <module>00 Starter Training/05 Async/async</module>
+        <module>00 Starter Training/06 Scheduling/scheduling</module>
+        <module>00 Starter Training/07 Paging/paging</module>
+        <module>00 Starter Training/08 Actuator/actuator</module>
+        <module>00 Starter Training/09 Grafana/grafana</module>
+        <module>04 Spring Boot Liquibase with DATABASECHANGELOG/crud</module>
+        <module>05 spring boot with Hibernate and H2 DB/hibernate</module>
+        <module>06 Spring Boot Logging with SLF4J and Logback/logging</module>
+        <module>07 Spring Boot 2 x Actuator/actuator</module>
+        <module>08 Spring Boot Job scheduler/scheduler</module>
+        <module>09 Spring Boot with External Tomcat Deployment/tomcat</module>
+        <module>10 Spring Boot with swagger/swagger</module>
+        <module>10.2 Swagger.yaml to generated code/swagger</module>
+        <module>11 JsonDocs/JsonDocs</module>
+        <module>12 SpringProfiles/profile</module>
+        <module>13 Sring Boot Batch/batch</module>
+        <module>14 Spring Security/00) Security/security</module>
+        <module>14 Spring Security/01) security using db/security</module>
+        <module>14 Spring Security/02) security using ldap/ldap</module>
+        <module>14 Spring Security/03) statless security using jwt/security</module>
+        <module>14 Spring Security/04) security role based auth facebook example/javatechie-group-service</module>
+        <module>14 Spring Security/05) Spring Cloud Security OAuth2 Google Sign In/security</module>
+        <module>14 Spring Security/06) Spring Security using Keycloak/keycloak</module>
+        <module>14 Spring Security/07) Spring Security Example for facebook/facebook</module>
+        <module>14 Spring Security/08) Microservices Security using JWT, eureka and api-gateway/api-gateway</module>
+        <module>14 Spring Security/08) Microservices Security using JWT, eureka and api-gateway/eureka-service-registry</module>
+        <module>14 Spring Security/08) Microservices Security using JWT, eureka and api-gateway/identity-service</module>
+        <module>14 Spring Security/08) Microservices Security using JWT, eureka and api-gateway/restaurant-service</module>
+        <module>14 Spring Security/08) Microservices Security using JWT, eureka and api-gateway/swiggy-service</module>
+        <module>14 Spring Security/09) JWT Refresh Token/security</module>
+        <module>14 Spring Security/10) Spring Security using Azure Active Directory/azureactivedirectory</module>
+        <module>14 Spring Security/11) Spring Security Exception Handling/security</module>
+        <module>15 CORS/client</module>
+        <module>15 CORS/portal</module>
+        <module>16 Spring Cloud/1) Eureka Service Registry/amazon-server</module>
+        <module>16 Spring Cloud/1) Eureka Service Registry/amazon-shopping</module>
+        <module>16 Spring Cloud/1) Eureka Service Registry/payment-service</module>
+        <module>17 JPA/jpa</module>
+        <module>18 RestClient/orderclientservice</module>
+        <module>18 RestClient/productproviderservice</module>
+        <module>19 AOP AuditTrail/aop</module>
+        <module>Others/5) Jsonpath Query Expression/jsonpath</module>
+    </modules>
+
+</project>
