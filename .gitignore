@@ -38,3 +38,5 @@ ehthumbs.db
 
 # Ignore any build artifacts
 /build/
+*.jar
+**/*.jar
