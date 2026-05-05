@@ -1,6 +1,9 @@
 package com.example.security.jwt.filter;
 
+import com.example.security.jwt.exceptionhandling.RequestAttributes;
 import com.example.security.jwt.util.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,9 +40,17 @@ public class JwtFilter extends OncePerRequestFilter {
         String jwt = null;
 
         // Step 2: Check if the header starts with "Bearer " and extract token, username
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+        try {
+            if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+                jwt = authHeader.substring(7);
+                username = jwtUtil.extractUsername(jwt);// ⚠️ may throw exception
+            }
+        } catch (ExpiredJwtException e) {
+            request.setAttribute(RequestAttributes.JWT_EXCEPTION, "expired");
+        } catch (SignatureException e) {
+            request.setAttribute(RequestAttributes.JWT_EXCEPTION, "invalid_signature");
+        } catch (Exception e) {
+            request.setAttribute(RequestAttributes.JWT_EXCEPTION, "invalid_token");
         }
 
         // Step 3: If username is found and user is not already authenticated
@@ -50,9 +60,8 @@ public class JwtFilter extends OncePerRequestFilter {
             // Validate the token against user details
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 // If valid, create authentication token
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
                 // Attach request-specific details
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 // Set authentication in security context

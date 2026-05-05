@@ -2,12 +2,14 @@ package com.example.security.controller;
 
 import com.example.security.business.UserBusiness;
 import com.example.security.config.CustomUserDetails;
+import com.example.security.jwt.exceptionhandling.ApiException;
 import com.example.security.jwt.util.JwtUtil;
 import com.example.security.model.UserDto;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -111,10 +113,10 @@ public class UserController {
                 log.debug("Valid: " + jwtUtil.validateToken(token, userDetails));
                 log.debug("Username: " + jwtUtil.extractUsername(token));
             } else {
-                throw new Exception("invalid username/password");
+                throw new ApiException("invalid username/password", HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
-            throw new Exception("invalid username/password");
+            throw new ApiException("invalid username/password", HttpStatus.UNAUTHORIZED);
         }
         return token;
     }

@@ -28,8 +28,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     private final UserDataService userDataService;
-//    private final JwtAuthenticationEntryPoint entryPoint;
-//    private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final JwtAuthenticationEntryPoint entryPoint;
+    private final JwtAccessDeniedHandler accessDeniedHandler;
 
     /////////////////////////////////PasswordEncoder/////////////////////////////////
 
@@ -74,12 +74,12 @@ public class SecurityConfiguration {
                         //.anyRequest().authenticated()  // all other URLs will be secured (e.g., /home, /api/other, /xyz)
                         // otherwise access denied (403 Forbidden) //All other URLs (e.g., /home, /api/other, /xyz) → not accessible
                 )
-//                .exceptionHandling(ex -> ex
-//                        //Unauthorized access (no token or invalid token) handled by a custom AuthenticationEntryPoint.
-//                        .authenticationEntryPoint(entryPoint)
-//                        //Access denied (valid token, but lacking roles) handled by a custom AccessDeniedHandler.
-//                        .accessDeniedHandler(accessDeniedHandler)
-//                )
+                .exceptionHandling(ex -> ex
+                        //Unauthorized access (no token or invalid token) handled by a custom AuthenticationEntryPoint.
+                        .authenticationEntryPoint(entryPoint)
+                        //Access denied (valid token, but lacking roles) handled by a custom AccessDeniedHandler.
+                        .accessDeniedHandler(accessDeniedHandler)
+                )
                 // Enforce stateless session management
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Add our JWT filter before the default UsernamePasswordAuthenticationFilter
