@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- index.html -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            overflow: hidden;
+        }
+
+        /* Floating blobs background */
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.15);
+            filter: blur(80px);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .blob:nth-child(1) {
+            top: 10%;
+            left: 15%;
+        }
+
+        .blob:nth-child(2) {
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(40px); }
+        }
+
+        /* Glass card */
+        .card {
+            position: relative;
+            width: 380px;
+            padding: 40px;
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            color: #fff;
+        }
+
+        .card h2 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .card span {
+            color: #00ffe7;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- background blobs -->
+<div class="blob"></div>
+<div class="blob"></div>
+
+<!-- glass card -->
+<div class="card">
+    <h2>Welcome <span th:text="${user}"></span></h2>
+
+    <p>You're successfully logged in 🚀</p>
+
+    <a class="logout-btn" href="/logout">Logout</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- ott-sent.html -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Token Sent</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            overflow: hidden;
+        }
+
+        /* glowing blobs */
+        .blob {
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .blob1 {
+            background: #00ffe7;
+            top: 10%;
+            left: 10%;
+        }
+
+        .blob2 {
+            background: #ff3cac;
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(40px); }
+        }
+
+        /* glass card */
+        .card {
+            width: 420px;
+            padding: 35px;
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            color: #fff;
+            z-index: 10;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            animation: pop 0.6s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .glow-line {
+            width: 60px;
+            height: 3px;
+            margin: 15px auto;
+
+            background: linear-gradient(90deg, #00ffe7, #ff3cac);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- background blobs -->
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<!-- glass card -->
+<div class="card">
+
+    <div class="icon">📩</div>
+
+    <h3>Welcome <span th:text="${username}"></span></h3>
+
+    <h3>One-Time Token Sent</h3>
+
+    <div class="glow-line"></div>
+
+    <p>
+        We have securely sent your login token to your email.<br>
+        Check your inbox and use it to complete login.
+    </p>
+
+    <a href="/api/v1/login-ott" class="btn">Proceed to login via OTT</a>
+    <a href="/api/v1/login" class="btn">Back to Login</a>
+
+</div>
+
+</body>
+</html>

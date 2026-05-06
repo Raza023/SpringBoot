@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- login.html -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            overflow: hidden;
+        }
+
+        /* glowing blobs */
+        .blob {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .blob1 {
+            background: #00ffe7;
+            top: 10%;
+            left: 10%;
+        }
+
+        .blob2 {
+            background: #ff00c8;
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(40px); }
+        }
+
+        /* glass card */
+        .card {
+            width: 380px;
+            padding: 30px;
+
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            color: #fff;
+            z-index: 10;
+        }
+
+        .card h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+
+            border-radius: 12px;
+            border: none;
+            outline: none;
+
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+
+            border: none;
+            border-radius: 12px;
+
+            font-weight: 600;
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+        .btn-login {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.03);
+        }
+
+        .btn-ott {
+            background: linear-gradient(90deg, #00ff87, #60efff);
+            color: #000;
+        }
+
+        .btn-ott:hover {
+            transform: scale(1.03);
+        }
+
+        hr {
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .link a {
+            color: #00ffe7;
+            text-decoration: none;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- background blobs -->
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<!-- login card -->
+<div class="card">
+
+    <h3>Welcome Back 👋</h3>
+
+    <!-- Normal login -->
+    <form th:action="@{/api/v1/login}" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password">
+        <button class="btn-login">Login</button>
+    </form>
+
+    <hr>
+
+    <!-- OTT login -->
+    <form th:action="@{/api/v1/login-ott}" method="post">
+        <input type="text" name="username" placeholder="Username">
+        <button class="btn-ott">Send Token</button>
+    </form>
+
+    <div class="link">
+        <a href="/api/v1/signup">Create account</a>
+    </div>
+
+</div>
+
+</body>
+</html>
