@@ -65,6 +65,7 @@
         <module>14 Spring Security/09) JWT Refresh Token/security</module>
         <module>14 Spring Security/10) Spring Security using Azure Active Directory/azureactivedirectory</module>
         <module>14 Spring Security/11) Spring Security Exception Handling/security</module>
+        <module>14 Spring Security/12) One-Time Token OTT Passwordless Login/ott</module>
         <module>15 CORS/client</module>
         <module>15 CORS/portal</module>
         <module>16 Spring Cloud/1) Eureka Service Registry/amazon-server</module>
