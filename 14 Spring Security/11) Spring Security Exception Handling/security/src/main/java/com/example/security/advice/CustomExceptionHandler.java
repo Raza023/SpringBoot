@@ -15,6 +15,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,15 +31,11 @@ public class CustomExceptionHandler {
 
     private final JwtAccessDeniedHandler accessDeniedHandler;
 
-    @ExceptionHandler(org.springframework.security.authorization.AuthorizationDeniedException.class)
-    public void handleAuthorizationDenied(
-            org.springframework.security.authorization.AuthorizationDeniedException ex,
-            HttpServletRequest request,
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public void handleAuthorizationDenied(AuthorizationDeniedException ex, HttpServletRequest request,
             HttpServletResponse response) throws IOException {
-
         // delegate to your existing handler
-        accessDeniedHandler.handle(request, response,
-                new org.springframework.security.access.AccessDeniedException(ex.getMessage(), ex));
+        accessDeniedHandler.handle(request, response, new AccessDeniedException(ex.getMessage(), ex));
     }
 
     //Explicitly throwing ApiException with a specific status and message.
