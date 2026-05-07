@@ -2,6 +2,7 @@ package com.example.ott.controller;
 
 import com.example.ott.modal.User;
 import com.example.ott.repository.UserDataService;
+import io.micrometer.common.util.StringUtils;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,26 +50,36 @@ public class AuthController {
         return "index";
     }
 
-//    @GetMapping("/ott-sent")
-//    public String ottSent() {
-//        return "ott-sent";
-//    }
+    @GetMapping("/ott-sent")
+    public String ottSentGet(@RequestParam String username, Model model) {
+        if (StringUtils.isNotEmpty(username)) {
+            model.addAttribute("username", username);
+        }
+        return "ott-sent";
+    }
 
-//    @PostMapping("/ott-sent")
-//    public String ottSent(@RequestParam String username, Model model) {
-//        model.addAttribute("username", username);
-//        return "ott-sent";
-//    }
+    @PostMapping("/ott-sent")
+    public String ottSent(@RequestParam String username, Model model) {
+        if (StringUtils.isNotEmpty(username)) {
+            model.addAttribute("username", username);
+        }
+        return "ott-sent";
+    }
 
-//    @PostMapping("/login-ott")
-//    public String sendToken(@RequestParam String username) {
-//        // generate token + email it
-//        return "redirect:/api/v1/ott-sent";
-//    }
+    @GetMapping("/login-ott")
+    public String loginOttPage(@RequestParam String token, Model model) {
+        model.addAttribute("token", token);
+        return "login-ott";
+    }
 
-//    @PostMapping("/login-ott")
-//    public String loginOttPage(@RequestParam String username) {
-//        return "login-ott";
-//    }
+    /**
+     * This url is called when user hits "proceed to login via OTT".
+     *
+     * @return login ott page
+     */
+    @GetMapping("/login-with-ott")
+    public String loginOttPage() {
+        return "login-ott";
+    }
 
 }

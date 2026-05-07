@@ -170,7 +170,8 @@
     <hr>
 
     <!-- OTT login -->
-    <form th:action="@{/api/v1/login-ott}" method="post">
+    <!-- DO NOT CHANGE ACTION: this action is provided and handled by spring security, I gave it in config. -->
+    <form th:action="@{/api/v1/ott}" method="post">
         <input type="text" name="username" placeholder="Username">
         <button class="btn-ott">Send Token</button>
     </form>

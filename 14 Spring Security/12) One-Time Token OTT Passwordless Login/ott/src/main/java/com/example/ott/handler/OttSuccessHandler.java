@@ -16,22 +16,41 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
 
-    private final OneTimeTokenGenerationSuccessHandler redirectHandler =
-            new RedirectOneTimeTokenGenerationSuccessHandler("/api/v1/ott-sent");
+//    private final OneTimeTokenGenerationSuccessHandler redirectHandler =
+//            new RedirectOneTimeTokenGenerationSuccessHandler("/api/v1/ott-sent");
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, OneTimeToken oneTimeToken)
             throws IOException, ServletException {
         // generate and send magic link (One time token)
-        UriComponentsBuilder token = UriComponentsBuilder.fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
+        UriComponentsBuilder token = UriComponentsBuilder
+                .fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
                 .replacePath(request.getContextPath())
                 .path("/api/v1/login-ott")
                 .queryParam("token", oneTimeToken.getTokenValue());
 
         String magicLink = token.toUriString();
         log.info("Magic link: " + magicLink);
-        log.info("One time token: {}", oneTimeToken);
+        log.info("""
+                        One Time Token Details:
+                                token      : {}
+                                username   : {}
+                                expiresAt  : {}
+                        """,
+                oneTimeToken.getTokenValue(),
+                oneTimeToken.getUsername(),
+                oneTimeToken.getExpiresAt());
 
-        redirectHandler.handle(request, response, oneTimeToken);
+        // 👉 CUSTOM REDIRECT WITH DATA
+        String redirectUrl = UriComponentsBuilder
+                .fromPath("/api/v1/ott-sent")
+                .queryParam("username", oneTimeToken.getUsername())
+                .build()
+                .toUriString();
+
+        response.sendRedirect(redirectUrl);
+
+        // REDIRECT WITHOUT DATA
+        //redirectHandler.handle(request, response, oneTimeToken);
     }
 }

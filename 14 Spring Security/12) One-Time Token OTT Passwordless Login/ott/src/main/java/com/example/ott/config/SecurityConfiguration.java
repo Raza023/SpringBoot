@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.ott.InMemoryOneTimeTokenService;
+import org.springframework.security.authentication.ott.OneTimeTokenService;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,6 +40,11 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public OneTimeTokenService oneTimeTokenService() {
+        return new InMemoryOneTimeTokenService();
+    }
+
     /////////////////////////////////Authentication/////////////////////////////////
 
     /**
@@ -62,7 +68,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http//.csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for stateless JWT
+        return http.csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for stateless JWT
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable))
                 .authorizeHttpRequests(// Set authorization rules
                         auth -> auth.requestMatchers(
@@ -70,6 +76,7 @@ public class SecurityConfiguration {
                                         "/api/v1/signup",
                                         "/h2-console/**",
                                         "/api/v1/login-ott",
+                                        "/api/v1/login-with-ott",
                                         "/api/v1/ott-sent"
                                 ).permitAll()
                                 //.requestMatchers("/api/v1/security/**").authenticated()
@@ -82,15 +89,23 @@ public class SecurityConfiguration {
                 //.formLogin(Customizer.withDefaults()).build();  //it gives form for login on /login
                 .formLogin(form -> form
                         .loginPage("/api/v1/login")
-                        .defaultSuccessUrl("/api/v1/index", true)
+                        //.defaultSuccessUrl("/api/v1/index", true)
+                        .successHandler((req, res, auth) ->
+                                res.sendRedirect("/api/v1/index"))
                 )
                 .logout(logout -> logout
+                        //This endpoint is managed by spring security.
                         .logoutSuccessUrl("/api/v1/login?logout")
                 )
                 .oneTimeTokenLogin(ott -> ott
                         .loginPage("/api/v1/login")
-//                        .loginProcessingUrl("/api/v1/login-ott")  // 👈 IMPORTANT
+                        // STEP 1 → generate token (this endpoint is managed by spring security)
+                        .tokenGeneratingUrl("/api/v1/ott")
+                        // STEP 2 → verify token (this endpoint is managed by spring security)
+                        .loginProcessingUrl("/api/v1/ott/verify")
                         .tokenGenerationSuccessHandler(ottSuccessHandler)
+                        .successHandler((req, res, auth) ->
+                                res.sendRedirect("/api/v1/index"))
                 )
                 .build();
     }
