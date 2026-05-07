@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- signup.html -->
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Create Account</title>
 
@@ -23,160 +24,253 @@
             justify-content: center;
             align-items: center;
 
-            background: linear-gradient(135deg, #141e30, #243b55);
+            background: radial-gradient(circle at top, #0b1220, #020617);
             overflow: hidden;
+            color: #fff;
         }
 
-        /* glowing blobs */
+        /* soft animated glow background */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 135, 0.10), transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(0, 198, 255, 0.10), transparent 45%),
+                radial-gradient(circle at 50% 100%, rgba(255, 78, 205, 0.08), transparent 50%);
+            animation: bgMove 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgMove {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        /* glowing blobs upgraded */
         .blob {
             position: absolute;
-            width: 360px;
-            height: 360px;
+            width: 380px;
+            height: 380px;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.6;
+            filter: blur(110px);
+            opacity: 0.45;
             animation: float 10s infinite ease-in-out;
         }
 
         .blob1 {
-            background: #00ffe7;
+            background: radial-gradient(circle, #00ffe7, transparent 70%);
             top: 10%;
             left: 10%;
         }
 
         .blob2 {
-            background: #ff4ecd;
+            background: radial-gradient(circle, #ff4ecd, transparent 70%);
             bottom: 10%;
             right: 10%;
             animation-delay: 2s;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(40px); }
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(40px) scale(1.1);
+            }
         }
 
-        /* glass card */
+        /* signup card (form) upgraded */
         form {
-            width: 380px;
-            padding: 30px;
+            width: 400px;
+            padding: 35px;
 
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
 
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.65);
 
-            color: #fff;
             z-index: 10;
+            animation: popIn 0.8s ease-out;
         }
 
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* icon */
+        .icon {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 231, 0.25));
+        }
+
+        /* title */
         h3 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: 600;
+            font-size: 22px;
         }
 
+        /* subtext */
+        .subtext {
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        /* inputs upgraded */
         input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 13px 14px;
+            margin-bottom: 12px;
 
-            border-radius: 12px;
-            border: none;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             outline: none;
 
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
             color: #fff;
+
+            transition: 0.3s ease;
+            font-size: 14px;
         }
 
         input::placeholder {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.45);
         }
 
+        input:focus {
+            border-color: rgba(0, 255, 135, 0.5);
+            box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.12);
+            transform: translateY(-1px);
+        }
+
+        /* register button premium */
         button {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
 
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
 
             font-weight: 600;
             cursor: pointer;
 
-            background: linear-gradient(90deg, #00ff87, #60efff);
+            background: linear-gradient(135deg, #00ff87, #60efff);
             color: #000;
 
-            transition: 0.3s ease;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 255, 135, 0.25);
         }
 
-        .icon {
-            text-align: center;
-            font-size: 45px;
-            margin-bottom: 10px;
+        /* shiny sweep */
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: 0.5s;
         }
 
-        .subtext {
-            text-align: center;
-            font-size: 12px;
-            opacity: 0.8;
-            margin-bottom: 15px;
+        button:hover::before {
+            left: 120%;
         }
+
+        /* back link */
         .link {
             text-align: center;
             margin-top: 15px;
+            font-size: 13px;
         }
 
         .link a {
             color: #00ffe7;
             text-decoration: none;
+            position: relative;
         }
 
-        .link a:hover {
-            text-decoration: underline;
+        .link a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0%;
+            height: 1px;
+            background: #00ffe7;
+            transition: 0.3s;
+        }
+
+        .link a:hover::after {
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
 
-<!-- background blobs -->
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
+    <!-- background blobs -->
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
 
-<!-- signup form (UNCHANGED ACTION + FIELDS) -->
-<form th:action="@{/api/v1/signup}" method="post">
+    <!-- signup form (UNCHANGED ACTION + FIELDS) -->
+    <form th:action="@{/api/v1/signup}" method="post">
 
-    <div class="icon">🚀</div>
+        <div class="icon">🚀</div>
 
-    <h3>Create Account</h3>
+        <h3>Create Account</h3>
 
-    <div class="subtext">
-        Join us and get started in seconds
-    </div>
+        <div class="subtext">
+            Join us and get started in seconds
+        </div>
 
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="username" placeholder="Username">
-    <input type="text" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
 
-    <button>Register</button>
+        <button>Register</button>
 
-    <div class="link">
-        <a href="/api/v1/login">Back to login</a>
-    </div>
+        <div class="link">
+            <a href="/api/v1/login">Back to login</a>
+        </div>
 
-</form>
+    </form>
 
 
 
 
 </body>
+
 </html>

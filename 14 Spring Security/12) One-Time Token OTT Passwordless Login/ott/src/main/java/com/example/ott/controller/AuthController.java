@@ -58,14 +58,6 @@ public class AuthController {
         return "ott-sent";
     }
 
-    @PostMapping("/ott-sent")
-    public String ottSent(@RequestParam String username, Model model) {
-        if (StringUtils.isNotEmpty(username)) {
-            model.addAttribute("username", username);
-        }
-        return "ott-sent";
-    }
-
     @GetMapping("/login-ott")
     public String loginOttPage(@RequestParam String token, Model model) {
         model.addAttribute("token", token);

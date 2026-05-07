@@ -41,6 +41,8 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
                 oneTimeToken.getUsername(),
                 oneTimeToken.getExpiresAt());
 
+        //I should send this token to user via email/sms
+
         // 👉 CUSTOM REDIRECT WITH DATA
         String redirectUrl = UriComponentsBuilder
                 .fromPath("/api/v1/ott-sent")
