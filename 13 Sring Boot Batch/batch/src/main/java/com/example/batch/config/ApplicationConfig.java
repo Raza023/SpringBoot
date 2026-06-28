@@ -67,7 +67,7 @@ public class ApplicationConfig {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // System.out.println(template.findAll(Person.class, "bank_users"));
+         System.out.println(template.findAll(Person.class, "bank_users"));
         return reader;
     }
 
