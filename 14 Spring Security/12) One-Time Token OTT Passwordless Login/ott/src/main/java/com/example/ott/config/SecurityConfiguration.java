@@ -40,11 +40,6 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public OneTimeTokenService oneTimeTokenService() {
-        return new InMemoryOneTimeTokenService();
-    }
-
     /////////////////////////////////Authentication/////////////////////////////////
 
     /**
