@@ -75,6 +75,7 @@
         <module>18 RestClient/orderclientservice</module>
         <module>18 RestClient/productproviderservice</module>
         <module>19 AOP AuditTrail/aop</module>
+        <module>20 Apache Camel/camel</module>
         <module>Others/5) Jsonpath Query Expression/jsonpath</module>
     </modules>
 
